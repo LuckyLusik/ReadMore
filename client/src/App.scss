@@ -1,0 +1,33 @@
+$dark-blue: #083D77;
+$light-blue: #4F7CAC;
+$grey: #DDDBDC;
+$green: #8EA47E;
+$light-orange: #F79820;
+
+body {
+    font-family: 'Raleway', "Droid Sans", "Helvetica Neue", sans-serif;
+    background-color: $light-blue;
+
+    .navbar .MuiAppBar-colorPrimary {
+        background-color: $dark-blue;
+        color: $grey;
+        flex-grow: 1;
+    }
+
+    .navbar .logo {
+        color: $light-orange;
+    }
+
+    .MuiButton-root {
+        font-family: 'Raleway', "Droid Sans", "Helvetica Neue", sans-serif;
+    }
+
+    .MuiTypography-h6 {
+        font-size: 2.35rem;
+    }
+
+    .logo {
+        font-family: 'Barriecito', cursive;
+        flex-grow: 1;
+    }
+}

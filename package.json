@@ -13,6 +13,7 @@
   "author": "Lucy",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/icons": "^4.4.3",
     "body-parser": "^1.19.0",
     "concurrently": "^4.1.2",
     "express": "^4.17.1",
