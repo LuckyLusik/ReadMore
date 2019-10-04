@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../images/logo_orange_03.png';
+import logo from '../images/logo_red_03.png';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';

@@ -1,21 +1,192 @@
-$dark-blue: #083D77;
-$light-blue: #4F7CAC;
-$grey: #DDDBDC;
-$green: #8EA47E;
+$dark-blue: #274156;
+$light-blue: #71A9F7;
+$almost-white: #F2F2F2;
+$bright-red: #EF522B;
+$light-yellow: #F6D8AE;
 $light-orange: #F79820;
+
+.fade-enter {
+    opacity: 0.01;
+}
+
+.fade-enter-active {
+    opacity: 1;
+    transition: all 500ms ease-in;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit-active {
+    opacity: 0.01;
+    transition: all 500ms ease-in;
+}
 
 body {
     font-family: 'Raleway', "Droid Sans", "Helvetica Neue", sans-serif;
-    background-color: $light-blue;
+    background-color: $light-yellow;
+
+    .middle-box {
+        width: 80%;
+        margin: 2em auto;
+    }
+
+    .MuiCardActions-root {
+        padding: 0;
+    }
+
+    .MuiSvgIcon-root {
+        margin-right: 0.7em;
+    }
+
+    .MuiPaper-elevation4 {
+        box-shadow: none;
+    }
+
+    .MuiButton-root {
+        border-radius: 0;
+        padding: 16px;
+    }
+
+    .MuiButton-containedSecondary {
+        color: #fff;
+        margin: 0 0 2em 0;
+        box-shadow: none;
+        background-color: #71A9F7;
+    }
+
+    .MuiButton-containedSecondary:hover {
+        background-color: $dark-blue;
+    }
+
+    .MuiButton-contained:active {
+        box-shadow: none;
+    }
+
+    .addBook .MuiCollapse-wrapper {
+        background-color: $almost-white;
+        margin-bottom: 2em;
+    }
+
+    .addBook .MuiFormControl-root {
+        width: 100%;
+    }
+
+    .addBook .MuiFormLabel-root {
+        font-family: 'Raleway', "Droid Sans", "Helvetica Neue", sans-serif;
+        color: $dark-blue;
+    }
+
+    .addBook .MuiFormLabel-root.Mui-focused {
+        color: $bright-red;
+    }
+
+    .addBook .MuiInput-underline:after {
+        border-bottom: 2px solid $bright-red;
+    }
+
+    .addBook .MuiInputBase-input {
+        font-family: 'Raleway', "Droid Sans", "Helvetica Neue", sans-serif;
+        color: $dark-blue;
+    }
+
+    .addBook .MuiInput-underline:before {
+        border-bottom: 1px solid $dark-blue;
+    }
+
+    .addBook .MuiInput-underline:hover:not(Mui-disabled):before {
+        border-bottom: 2px solid $dark-blue;
+    }
+
+    .addBook .MuiButton-containedSecondary {
+        margin: 2em 1em 0 0;
+        background-color: $bright-red;
+    }
+
+    .addBook .MuiButton-containedSecondary:hover {
+        background-color: $dark-blue;
+    }
+
+    .addBook .resetBook.MuiButton-containedSecondary {
+        background-color: $light-orange;
+    }
+
+    .addBook .resetBook.MuiButton-containedSecondary:hover {
+        background-color: $dark-blue;
+    }
+
+    .addBook .MuiTypography-gutterBottom {
+        margin-top: 0.35em;
+    }
+
+    .addBook .MuiTypography-body1 {
+        font-family: 'Raleway', "Droid Sans", "Helvetica Neue", sans-serif;
+        color: $dark-blue;
+    }
+
+    .addBook .MuiSlider-root {
+        color: $dark-blue;
+    }
+
+    .wrap {
+        flex-wrap: wrap;
+        padding: 0;
+        margin: 0;
+        -ms-box-orient: horizontal;
+        display: -moz-flex;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .one-book {
+        -moz-box-sizing: border-box; 
+        -webkit-box-sizing: border-box; 
+        box-sizing: border-box; 
+        background-color: $almost-white;
+        margin: 0 5px 10px 5px;
+        width: 190px;
+
+        .author-style {
+            color: $dark-blue;
+            padding: 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .title-style {
+            color: $light-blue;
+            font-weight: 700;
+            padding: 0 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .rate-style {
+            margin: 10;
+            color: '#fff';
+            background-color: $bright-red;
+            font-family: 'Raleway', "Droid Sans", "Helvetica Neue", sans-serif;
+            font-size: 16px;
+            font-style: italic;
+            margin: 10px;
+        }
+
+        .MuiSvgIcon-root {
+            margin-right: 0;
+        }
+
+    }
 
     .navbar .MuiAppBar-colorPrimary {
         background-color: $dark-blue;
-        color: $grey;
+        color: $almost-white;
         flex-grow: 1;
     }
 
     .navbar .logo {
-        color: $light-orange;
+        color: $bright-red;
     }
 
     .MuiButton-root {
