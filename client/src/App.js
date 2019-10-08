@@ -2,13 +2,17 @@ import React from 'react';
 import './App.scss';
 import AppNavbar from './components/AppNavbar';
 import BookList from './components/BookList';
+import { Provider } from 'react-redux';
+import store from './store';
 
 function App() {
   return (
-    <div className="App">
-      <AppNavbar />
-      <BookList />
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <AppNavbar />
+        <BookList />
+      </div>
+    </Provider>
   );
 }
 

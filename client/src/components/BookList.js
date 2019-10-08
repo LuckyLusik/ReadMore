@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import React, { useState, useEffect } from 'react';
 import uuid from 'uuid';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { connect } from 'react-redux';
+import { getBooks, deleteBook } from '../actions/bookActions';
+import PropTypes from 'prop-types';
 //import BookDisplay from './BookDisplay';
 
 import Button from '@material-ui/core/Button';
@@ -36,34 +39,16 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function BookList() {
+function BookList(props) {
     const classes = useStyles();
-    const [ books, setBooks ] = useState(
-        [
-            {   id: uuid(), 
-                title: "King, Queen, Knave", 
-                author: "Nabokov Vladimir", 
-                imageURL: "https://kbimages1-a.akamaihd.net/0106577e-3cb2-4447-89f4-7311ffa9fb80/1200/1200/False/king-queen-knave.jpg",
-                rate: 10 },
-            {   id: uuid(), 
-                title: "The Luzhin Defense", 
-                author: "Nabokov Vladimir", 
-                imageURL: "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1429424006l/8153.jpg",
-                rate: 10 },
-            {   id: uuid(), 
-                title: "Laughter in the Dark", 
-                author: "Nabokov Vladimir", 
-                imageURL: "https://tomcatintheredroom.files.wordpress.com/2010/05/n58382.jpg",
-                rate: 10 },
-            {   id: uuid(), 
-                title: "Lolita", 
-                author: "Nabokov Vladimir", 
-                imageURL: "https://imagessl0.casadellibro.com/a/l/t0/50/9788492549450.jpg",
-                rate: 10 }
-        ]
-    );
-
+    const { books } = props.book;
+    /*
+    const [ books, setBooks ] = useState(props.book.books);
+    const boooks = props.book.books;
+    useEffect(() => {props.getBooks()}, []); 
+    */
     const addBook = () => {
+        /*
         if (title && author && imageURL && rate) {
             setBooks([
                 ...books,
@@ -81,11 +66,11 @@ export default function BookList() {
             setRate('');
             setExpanded(false);
         }
+        */
     };
 
-    const deleteBook = (bookId) => {
-        //setInProp(prev => !prev);
-        setBooks(books.filter( book => book.id !== bookId));
+    const onDeleteClick = (bookId) => {
+        props.deleteBook(bookId);
     };
 
     const resetBook = () => {
@@ -202,7 +187,7 @@ export default function BookList() {
                                     <Grid container justify="center" alignItems="center">
                                         <Avatar className={'rate-style'}>{book.rate}</Avatar>
                                         <Button className={classes.button}><EditIcon /></Button>
-                                        <Button className={classes.button} onClick={() => deleteBook(book.id)}><DeleteForeverIcon /></Button>
+                                        <Button className={classes.button} onClick={() => onDeleteClick(book.id)}><DeleteForeverIcon /></Button>
                                     </Grid>
                                     
                                 </div>
@@ -213,3 +198,14 @@ export default function BookList() {
         </div>
     )
 }
+
+BookList.propTypes = {
+    getBooks: PropTypes.func.isRequired,
+    book: PropTypes.object.isRequired
+}
+
+const mapStateToProps = (state) => ({
+    book: state.book
+});
+
+export default connect(mapStateToProps, { getBooks, deleteBook })(BookList);
