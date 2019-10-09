@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
 import { getBooks, deleteBook } from '../actions/bookActions';
@@ -21,14 +21,18 @@ const useStyles = makeStyles(theme => ({
 function BookList(props) {
     const classes = useStyles();
     const { books } = props.book;
-    /*
-    const [ books, setBooks ] = useState(props.book.books);
-    const boooks = props.book.books;
-    useEffect(() => {props.getBooks()}, []); 
-    */
+    const { getBooks, deleteBook } = props;
+
+    const initFetch = useCallback(() => {
+        getBooks();
+      }, [getBooks]);
+    
+      useEffect(() => {
+        initFetch();
+      }, [initFetch]);
 
     const onDeleteClick = (bookId) => {
-        props.deleteBook(bookId);
+        deleteBook(bookId);
     };
 
     return (
@@ -37,7 +41,7 @@ function BookList(props) {
                 {
                     books.map( book => (
                         <CSSTransition 
-                            key={book.id} 
+                            key={book._id} 
                             timeout={500} 
                             classNames='fade'
                         >
@@ -54,7 +58,7 @@ function BookList(props) {
                                 <Grid container justify="center" alignItems="center">
                                     <Avatar className={'rate-style'}>{book.rate}</Avatar>
                                     <Button className={classes.button}><EditIcon /></Button>
-                                    <Button className={classes.button} onClick={() => onDeleteClick(book.id)}><DeleteForeverIcon /></Button>
+                                    <Button className={classes.button} onClick={() => onDeleteClick(book._id)}><DeleteForeverIcon /></Button>
                                 </Grid>
                                 
                             </div>

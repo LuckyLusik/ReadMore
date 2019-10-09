@@ -1,7 +1,6 @@
 import React, { useReducer } from 'react';
 import { connect } from 'react-redux';
 import { addBook } from '../actions/bookActions';
-import uuid from 'uuid';
 
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
@@ -66,7 +65,6 @@ function AddBook(props) {
 
     const addNewBook = () => {
         const newBook = {
-            id: uuid(),
             title: userInput.title,
             author: userInput.author,
             imageURL: userInput.imageURL,
