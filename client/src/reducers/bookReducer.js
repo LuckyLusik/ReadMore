@@ -37,6 +37,11 @@ export default function(state = initialState, action){
                 ...state,
                 books: state.books.filter( book => book.id !== action.payload)
             };
+        case ADD_BOOK:
+            return {
+                ...state,
+                books: [action.payload, ...state.books]
+            };
         default:
             return state;
     }

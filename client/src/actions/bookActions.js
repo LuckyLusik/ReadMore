@@ -12,3 +12,10 @@ export const deleteBook = id => {
         payload: id
     };
 };
+
+export const addBook = book => {
+    return {
+        type: ADD_BOOK,
+        payload: book
+    };
+};
