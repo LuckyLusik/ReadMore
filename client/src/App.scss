@@ -129,6 +129,16 @@ body {
         color: $dark-blue;
     }
 
+    .addBook {
+        .MuiCardContent-root {
+            padding: 24px;
+        }
+
+        .MuiSlider-root:hover {
+            color: $bright-red;
+        }
+    }
+
     .wrap {
         flex-wrap: wrap;
         padding: 0;
@@ -154,6 +164,55 @@ body {
             font-family: 'Raleway', "Droid Sans", "Helvetica Neue", sans-serif;
         }
 
+        .MuiSlider-root:hover {
+            color: $bright-red;
+        }
+    }
+
+    .editBookWindow {
+        .MuiFormLabel-root.Mui-focused {
+            color: $bright-red;
+        }
+
+        .MuiInput-underline:after {
+            border-bottom: 2px solid $bright-red;
+        }
+
+        .MuiInput-underline:hover:not(Mui-disabled):before {
+            border-bottom: 2px solid $dark-blue;
+        }
+
+        .MuiPaper-rounded {
+            border-radius: 0px;
+        }
+
+        .MuiDialogTitle-root {
+            background-color: $light-blue;
+            color: $almost-white;
+        }
+
+        .MuiTypography-h6 {
+            font-family: 'Raleway', "Droid Sans", "Helvetica Neue", sans-serif;
+            font-weight: 800;
+        }
+
+        .MuiButton-containedSecondary {
+            color: $almost-white;
+            margin: 0 0 0 1em;
+            background-color: $bright-red;
+        }
+
+        .MuiButton-containedSecondary.cancelButton {
+            background-color: $light-orange;
+        }
+
+        .MuiButton-containedSecondary:hover {
+            background-color: $dark-blue;
+        }
+
+        .MuiDialogActions-root, .MuiCardContent-root {
+            padding: 24px;
+        }
     }
 
     .one-book {

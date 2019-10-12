@@ -67,7 +67,7 @@ function EditBook(props) {
     return (
         <div>
             <Button style={{ color: '#274156' }} onClick={handleClickOpen}><EditIcon /></Button>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="editBookWindow">
                 <DialogTitle id="form-dialog-title">Edit Book's Info</DialogTitle>
                     <CardContent className="editBook">
                         <FormControl>
@@ -100,10 +100,10 @@ function EditBook(props) {
                         </FormControl>
                     </CardContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={handleClose} color="secondary" variant="contained" className="cancelButton">
                         Cancel
                     </Button>
-                    <Button onClick={handleEditBook} color="primary">
+                    <Button onClick={handleEditBook} color="secondary" variant="contained">
                         Save Changes
                     </Button>
                 </DialogActions>
