@@ -140,6 +140,22 @@ body {
         justify-content: center;
     }
 
+    .editBook {
+        .MuiFormControl-root {
+            width: 100%;
+        }
+
+        .MuiFormLabel-root, .MuiTypography-body1, .MuiSlider-root {
+            font-family: 'Raleway', "Droid Sans", "Helvetica Neue", sans-serif;
+            color: $dark-blue;
+        }
+
+        .MuiInputBase-root {
+            font-family: 'Raleway', "Droid Sans", "Helvetica Neue", sans-serif;
+        }
+
+    }
+
     .one-book {
         -moz-box-sizing: border-box; 
         -webkit-box-sizing: border-box; 

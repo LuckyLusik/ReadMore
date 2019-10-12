@@ -31,8 +31,8 @@ router.post('/', (req, res) => {
 // @desc    UPDATE an Item
 // @access  Public
 router.put('/:id', (req, res) => {
-    Item.findByIdAndUpdate(req.params.id, req.body, {new: true})
-        .then(() => res.json({success: true}))
+    Item.findByIdAndUpdate(req.params.id, req.body, {new: false, useFindAndModify: false}, () => {})
+        .then((updatedBook) => res.json(updatedBook))
         .catch(err => res.status(404).json({success: false}));
 });
 

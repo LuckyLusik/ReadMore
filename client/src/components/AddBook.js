@@ -30,13 +30,12 @@ const useStyles = makeStyles(theme => ({
 
 function AddBook(props) {
     const classes = useStyles();
-
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
 
-    const [rate, setRate] = React.useState('');
+    const [rate, setRate] = React.useState(0);
     const handleChangeRate = (event, newValue) => {
         setRate(newValue);
     };
@@ -60,7 +59,8 @@ function AddBook(props) {
             title: '',
             author: '',
             imageURL: '',
-        })
+        });
+        setRate(0);
     };
 
     const addNewBook = () => {
@@ -129,7 +129,7 @@ function AddBook(props) {
                             Rate
                         </Typography>
                         <Slider
-                            defaultValue={0}
+                            defaultValue={rate}
                             onChange={handleChangeRate}
                             aria-labelledby="discrete-slider"
                             valueLabelDisplay="auto"

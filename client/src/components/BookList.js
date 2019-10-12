@@ -1,14 +1,13 @@
 import React, { useEffect, useCallback } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
-import { getBooks, deleteBook } from '../actions/bookActions';
+import { getBooks, deleteBook, updateBook } from '../actions/bookActions';
 import PropTypes from 'prop-types';
-
+import EditBook from './EditBook';
 
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import EditIcon from '@material-ui/icons/Edit';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 
@@ -35,6 +34,10 @@ function BookList(props) {
         deleteBook(bookId);
     };
 
+    const refreshUpdatedBook = () => {
+        initFetch();
+    }
+
     return (
         <div className="middle-box">
             <TransitionGroup className="wrap">
@@ -57,10 +60,9 @@ function BookList(props) {
                                 </div>
                                 <Grid container justify="center" alignItems="center">
                                     <Avatar className={'rate-style'}>{book.rate}</Avatar>
-                                    <Button className={classes.button}><EditIcon /></Button>
+                                    <EditBook bookToEdit={book} refreshUpdatedBook={refreshUpdatedBook}/>
                                     <Button className={classes.button} onClick={() => onDeleteClick(book._id)}><DeleteForeverIcon /></Button>
                                 </Grid>
-                                
                             </div>
                         </CSSTransition>
                     ))
@@ -79,4 +81,4 @@ const mapStateToProps = (state) => ({
     book: state.book
 });
 
-export default connect(mapStateToProps, { getBooks, deleteBook })(BookList);
+export default connect(mapStateToProps, { getBooks, deleteBook, updateBook })(BookList);
