@@ -127,6 +127,7 @@ body {
 
     .addBook .MuiSlider-root {
         color: $dark-blue;
+        width: 90%;
     }
 
     .addBook {
@@ -137,6 +138,47 @@ body {
         .MuiSlider-root:hover {
             color: $bright-red;
         }
+
+        .MuiTypography-body1 {
+            line-height: 3;
+        }
+
+        .rate-style {
+            margin: 10;
+            color: '#fff';
+            background-color: $bright-red;
+            font-family: 'Raleway', "Droid Sans", "Helvetica Neue", sans-serif;
+            font-size: 16px;
+            font-style: italic;
+            margin: 10px;
+        }
+
+        .flex-start {
+            justify-content: flex-start;
+        }
+    }
+
+    .description {
+        width: 190px;
+        height: 280px;
+        background-color: $almost-white;
+        position: absolute;
+        top: 0px;
+        z-index: 200000;
+        padding: 15px;
+        box-sizing: border-box;
+        line-height: 1.5;
+        color: $dark-blue;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .darkblue {
+        color: $dark-blue;
+    }
+
+    .red {
+        color: $bright-red;
     }
 
     .wrap {
@@ -148,6 +190,10 @@ body {
         display: flex;
         flex-direction: row;
         justify-content: center;
+    }
+
+    .wrap.justify {
+        justify-content: space-between;
     }
 
     .editBook {
@@ -164,12 +210,34 @@ body {
             font-family: 'Raleway', "Droid Sans", "Helvetica Neue", sans-serif;
         }
 
+        .MuiSlider-root {
+            width: 88%;
+        }
+
         .MuiSlider-root:hover {
             color: $bright-red;
+        }
+
+        .flex-start {
+            justify-content: flex-start;
+        }
+
+        .rate-style {
+            margin: 10;
+            color: '#fff';
+            background-color: $bright-red;
+            font-family: 'Raleway', "Droid Sans", "Helvetica Neue", sans-serif;
+            font-size: 16px;
+            font-style: italic;
+            margin: 10px;
         }
     }
 
     .editBookWindow {
+        .MuiTypography-body1 {
+            line-height: 3;
+        }
+
         .MuiFormLabel-root.Mui-focused {
             color: $bright-red;
         }
@@ -219,7 +287,7 @@ body {
         -moz-box-sizing: border-box; 
         -webkit-box-sizing: border-box; 
         box-sizing: border-box; 
-        background-color: $almost-white;
+        background-color: white;
         margin: 0 5px 10px 5px;
         width: 190px;
 
@@ -250,6 +318,10 @@ body {
 
         .MuiSvgIcon-root {
             margin-right: 0;
+        }
+
+        .MuiButton-root {
+            min-width: 30px;
         }
 
     }

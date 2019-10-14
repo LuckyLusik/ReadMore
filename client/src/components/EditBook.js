@@ -14,6 +14,9 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
+import MoodBadIcon from '@material-ui/icons/MoodBad';
+import MoodIcon from '@material-ui/icons/Mood';
+import Avatar from '@material-ui/core/Avatar';
 
 function EditBook(props) {
     const { bookToEdit, refreshUpdatedBook, updateBook } = props;
@@ -83,20 +86,27 @@ function EditBook(props) {
                             <Input name="imageURL" type="text" id="component-imageURL" value={userInput.imageURL} onChange={handleChange} />
                         </FormControl>
                         <FormControl>
-                            <Typography id="discrete-slider" gutterBottom>
-                                Rate
-                            </Typography>
-                            <Slider
-                                defaultValue={bookToEdit.rate}
-                                onChange={handleChangeRate}
-                                aria-labelledby="discrete-slider"
-                                valueLabelDisplay="auto"
-                                step={0.5}
-                                marks
-                                min={0}
-                                max={10}
-                                name="rate"
-                            />
+                            <div className="wrap flex-start">
+                                <Typography id="discrete-slider" gutterBottom>
+                                    Rate:
+                                </Typography>
+                                <Avatar className="rate-style">{rate}</Avatar>
+                            </div>
+                            <div className="wrap justify">
+                                <MoodBadIcon style={{ color: '#F79820', margin: 0}}/>
+                                <Slider
+                                    defaultValue={bookToEdit.rate}
+                                    onChange={handleChangeRate}
+                                    aria-labelledby="discrete-slider"
+                                    valueLabelDisplay="auto"
+                                    step={0.5}
+                                    marks
+                                    min={0}
+                                    max={10}
+                                    name="rate"
+                                />
+                                <MoodIcon style={{ color: '#EF522B', margin: 0}} />
+                            </div>
                         </FormControl>
                     </CardContent>
                 <DialogActions>
