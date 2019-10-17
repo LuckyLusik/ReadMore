@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { getBooks, deleteBook, updateBook } from '../actions/bookActions';
 import PropTypes from 'prop-types';
 import EditBook from './EditBook';
+import Img from 'react-image';
+import badImage from '../images/noimage.png';
 
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -58,6 +60,18 @@ function BookList(props) {
         }
     }
 
+    /* 
+    { visible[book._id] === true ? 
+        <div className="description">
+            Awe and exhiliration - along with heartbreak 
+            and mordant wit - abound in Lolita, 
+            Nabokov's most famous and controversial novel, 
+            which tells the story of the aging Humbert Humbert's 
+            obsessive, devouring, and doomed passion for the 
+            nymphet Dolores Haze.
+        </div> : null }
+    */
+
     return (
         <div className="middle-box">
             <TransitionGroup className="wrap">
@@ -70,17 +84,14 @@ function BookList(props) {
                         >
                             <div className="one-book">
                                 <div style={{ width: 190,  height: 280, overflow: "hidden", position: "relative"}}>
-                                    <img src={book.imageURL} alt="Book Cover" style={{ width: 190, height: "auto"}}></img>
-                                    <Avatar className="rate-style" style={{ position: "absolute", top: 220, right: 0 }}>{book.rate}</Avatar>
-                                    { visible[book._id] === true ? 
-                                    <div className="description">
-                                        Awe and exhiliration - along with heartbreak 
-                                        and mordant wit - abound in Lolita, 
-                                        Nabokov's most famous and controversial novel, 
-                                        which tells the story of the aging Humbert Humbert's 
-                                        obsessive, devouring, and doomed passion for the 
-                                        nymphet Dolores Haze.
-                                    </div> : null }
+                                    <Img src={[book.imageURL, badImage]} alt="Book Cover" style={{ width: 190, height: "auto"}} />
+                                    <Button className="button-rate" style={{ zIndex: visible[book._id] === true ? '10000' : '30000' }}>
+                                        <Avatar className="rate-style">{book.rate}</Avatar>
+                                    </Button>
+                                    <div className="description" style={{ opacity: visible[book._id] === true ? '1' : '0' }}>
+                                        {book.description}
+                                    </div>
+                                    
                                 </div>
                                 <div className="author-style">
                                     {book.author}

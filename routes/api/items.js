@@ -21,6 +21,7 @@ router.post('/', (req, res) => {
         title: req.body.title,
         author: req.body.author,
         imageURL: req.body.imageURL,
+        description: req.body.description,
         rate: req.body.rate
     });
     newItem.save()

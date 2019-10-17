@@ -14,11 +14,15 @@ const ItemSchema = new Schema({
     },
     imageURL: {
         type: String,
-        required: true
+        required: false
     },
     rate: {
         type: Number,
         required: true
+    },
+    description: {
+        type: String,
+        required: false
     },
     date: {
         type: Date,

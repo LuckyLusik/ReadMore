@@ -9,7 +9,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import CardContent from '@material-ui/core/CardContent';
-import FormControl from '@material-ui/core/FormControl';
+import { FormControl, FormHelperText } from '@material-ui/core';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Slider from '@material-ui/core/Slider';
@@ -27,30 +27,17 @@ function EditBook(props) {
     };
 
     const handleClose = () => {
+        setUserInput({
+            title: bookToEdit.title,
+            author: bookToEdit.author,
+            imageURL: bookToEdit.imageURL,
+            description: bookToEdit.description,
+            titleCheck: true,
+            authorCheck: true,
+            rateCheck: true,
+        });
+        setRate(bookToEdit.rate);
         setOpen(false);
-    };
-
-    const handleEditBook = () => {
-        const updateEverything = new Promise((resolve, reject) => {
-            const updatedBook = {
-                _id: bookToEdit._id,
-                title: userInput.title,
-                author: userInput.author,
-                imageURL: userInput.imageURL,
-                rate: rate
-            };
-            resolve(updatedBook);
-        })
-        
-        updateEverything
-            .then((updatedBook) => updateBook(updatedBook))
-            .then(() => refreshUpdatedBook())
-            .then(() => setOpen(false));
-    }
-
-    const [rate, setRate] = useState(bookToEdit.rate);
-    const handleChangeRate = (event, newValue) => {
-        setRate(newValue);
     };
 
     const [userInput, setUserInput] = useReducer(
@@ -59,6 +46,10 @@ function EditBook(props) {
                 title: bookToEdit.title,
                 author: bookToEdit.author,
                 imageURL: bookToEdit.imageURL,
+                description: bookToEdit.description,
+                titleCheck: true,
+                authorCheck: true,
+                rateCheck: true,
             }
     );
     
@@ -67,31 +58,91 @@ function EditBook(props) {
         setUserInput({[name]: value});
     };
 
+    const handleEditBook = () => {
+        const checkIfTrue = {...userInput};
+        if(userInput.title.length <= 0) {
+            checkIfTrue.titleCheck = false
+        } else { checkIfTrue.titleCheck = true }
+        if(userInput.author.length <= 0) {
+            checkIfTrue.authorCheck = false
+        } else { checkIfTrue.authorCheck = true }
+        if(rate === 0) {
+            checkIfTrue.rateCheck = false
+        } else { checkIfTrue.rateCheck = true }
+        setUserInput({
+            titleCheck: checkIfTrue.titleCheck,
+            authorCheck: checkIfTrue.authorCheck,
+            rateCheck: checkIfTrue.rateCheck,
+        });
+        if(checkIfTrue.titleCheck && checkIfTrue.authorCheck & checkIfTrue.rateCheck) {
+            const updateEverything = new Promise((resolve, reject) => {
+                const updatedBook = {
+                    _id: bookToEdit._id,
+                    title: userInput.title,
+                    author: userInput.author,
+                    imageURL: userInput.imageURL,
+                    description: userInput.description,
+                    rate: rate
+                };
+                resolve(updatedBook);
+            })
+            
+            updateEverything
+                .then((updatedBook) => updateBook(updatedBook))
+                .then(() => refreshUpdatedBook())
+                .then(() => setOpen(false));
+        }
+    }
+
+    const [rate, setRate] = useState(bookToEdit.rate);
+    const handleChangeRate = (event, newValue) => {
+        setRate(newValue);
+    };
+
     return (
         <div>
             <Button style={{ color: '#274156' }} onClick={handleClickOpen}><EditIcon /></Button>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="editBookWindow">
+            <Dialog style={{ zIndex: '40000' }} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="editBookWindow">
                 <DialogTitle id="form-dialog-title">Edit Book's Info</DialogTitle>
                     <CardContent className="editBook">
-                        <FormControl>
-                            <InputLabel htmlFor="component-title">Title</InputLabel>
-                            <Input name="title" type="text" id="component-title" value={userInput.title} onChange={handleChange} />
+                        <FormControl style={{ marginBottom: 0 }}>
+                            <InputLabel htmlFor="component-edit-author">Author (Last and First Names) <sup style={{ color: '#EF522B', fontSize: 40, top: '0.2em' }}>*</sup></InputLabel>
+                            <Input 
+                            name="author" 
+                            type="text" 
+                            id="component-edit-author" 
+                            style={{ backgroundColor: userInput.authorCheck ? '' : '#ef522a36', transition: 'all 500ms ease-in' }}
+                            value={userInput.author} 
+                            onChange={handleChange} />
+                            <FormHelperText id="my-helper-edit-author" style={{ opacity: userInput.authorCheck ? '0' : '1', color: '#EF522B', transition: 'all 500ms ease-in', fontFamily: 'Raleway' }} >Please, enter an Author.</FormHelperText>
+                        </FormControl>
+                        <FormControl style={{ marginBottom: 0 }}>
+                            <InputLabel htmlFor="component-edit-title">Title <sup style={{ color: '#EF522B', fontSize: 40, top: '0.2em' }}>*</sup></InputLabel>
+                            <Input 
+                            name="title" 
+                            type="text" 
+                            id="component-edit-title" 
+                            style={{ backgroundColor: userInput.titleCheck ? '' : '#ef522a36', transition: 'all 500ms ease-in' }}
+                            value={userInput.title} 
+                            onChange={handleChange} />
+                            <FormHelperText id="my-helper-edit-title" style={{ opacity: userInput.titleCheck ? '0' : '1', color: '#EF522B', transition: 'all 500ms ease-in', fontFamily: 'Raleway' }} >Please, enter a Title.</FormHelperText>
                         </FormControl>
                         <FormControl>
-                            <InputLabel htmlFor="component-author">Author (Last and First Names)</InputLabel>
-                            <Input name="author" type="text" id="component-author" value={userInput.author} onChange={handleChange} />
+                            <InputLabel htmlFor="component-edit-imageURL">Link to the cover's image (URL)</InputLabel>
+                            <Input name="imageURL" type="text" id="component-edit-imageURL" value={userInput.imageURL} onChange={handleChange} />
                         </FormControl>
                         <FormControl>
-                            <InputLabel htmlFor="component-imageURL">Link to cover's image</InputLabel>
-                            <Input name="imageURL" type="text" id="component-imageURL" value={userInput.imageURL} onChange={handleChange} />
+                            <InputLabel htmlFor="component-edit-description">Short description</InputLabel>
+                            <Input name="description" type="text" id="component-edit-description" value={userInput.description} onChange={handleChange} />
                         </FormControl>
                         <FormControl>
-                            <div className="wrap flex-start">
+                            <div className="wrap flex-start" style={{ backgroundColor: userInput.rateCheck ? '' : '#ef522a36', transition: 'all 500ms ease-in' }}>
                                 <Typography id="discrete-slider" gutterBottom>
-                                    Rate:
+                                    Rate <sup style={{ color: '#EF522B', fontSize: 40, top: '0.2em' }}>*</sup>
                                 </Typography>
                                 <Avatar className="rate-style">{rate}</Avatar>
                             </div>
+                            <FormHelperText id="my-helper-edit-rate" style={{ opacity: userInput.rateCheck ? '0' : '1', color: '#EF522B', transition: 'all 500ms ease-in', fontFamily: 'Raleway' }} >Please, rate this Book.</FormHelperText>
                             <div className="wrap justify">
                                 <MoodBadIcon style={{ color: '#F79820', margin: 0}}/>
                                 <Slider
