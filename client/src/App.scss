@@ -162,14 +162,14 @@ body {
     .description {
         width: 190px;
         height: 280px;
-        background-color: $almost-white;
+        background-color: $dark-blue;
         position: absolute;
         top: 0px;
         z-index: 20000;
         padding: 15px;
         box-sizing: border-box;
         line-height: 1.5;
-        color: $dark-blue;
+        color: white;
         overflow-y: scroll;
         -webkit-overflow-scrolling: touch;
         transition: all 500ms ease-in;
@@ -280,7 +280,11 @@ body {
 
         .MuiDialogTitle-root {
             background-color: $light-blue;
-            color: $almost-white;
+            color: white;
+        }
+
+        .deleteBtn.MuiDialogTitle-root {
+            background-color: $bright-red;
         }
 
         .MuiTypography-h6 {
@@ -320,6 +324,7 @@ body {
             padding: 10px;
             overflow: hidden;
             text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .title-style {
@@ -328,6 +333,7 @@ body {
             padding: 0 10px;
             overflow: hidden;
             text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .rate-style {

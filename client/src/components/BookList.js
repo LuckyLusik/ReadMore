@@ -1,29 +1,21 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
-import { getBooks, deleteBook, updateBook } from '../actions/bookActions';
+import { getBooks, updateBook } from '../actions/bookActions';
 import PropTypes from 'prop-types';
 import EditBook from './EditBook';
 import Img from 'react-image';
 import badImage from '../images/noimage.png';
+import DeleteBook from './DeleteBook';
 
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-const useStyles = makeStyles(theme => ({
-    button: {
-        color: '#274156',
-    },
-}));
-
 function BookList(props) {
-    const classes = useStyles();
     const { books } = props.book;
-    const { getBooks, deleteBook } = props;
+    const { getBooks } = props;
 
     const initFetch = useCallback(() => {
         getBooks();
@@ -32,10 +24,6 @@ function BookList(props) {
       useEffect(() => {
         initFetch();
       }, [initFetch]);
-
-    const onDeleteClick = (bookId) => {
-        deleteBook(bookId);
-    };
 
     const refreshUpdatedBook = () => {
         initFetch();
@@ -59,18 +47,6 @@ function BookList(props) {
             setVisible({[bookId]: true}); 
         }
     }
-
-    /* 
-    { visible[book._id] === true ? 
-        <div className="description">
-            Awe and exhiliration - along with heartbreak 
-            and mordant wit - abound in Lolita, 
-            Nabokov's most famous and controversial novel, 
-            which tells the story of the aging Humbert Humbert's 
-            obsessive, devouring, and doomed passion for the 
-            nymphet Dolores Haze.
-        </div> : null }
-    */
 
     return (
         <div className="middle-box">
@@ -105,7 +81,7 @@ function BookList(props) {
                                             <MoreVertIcon />
                                     </Button>
                                     <EditBook bookToEdit={book} refreshUpdatedBook={refreshUpdatedBook}/>
-                                    <Button className={classes.button} onClick={() => onDeleteClick(book._id)}><DeleteForeverIcon /></Button>
+                                    <DeleteBook bookToDelete={book}></DeleteBook>
                                 </Grid>
                             </div>
                         </CSSTransition>
@@ -125,4 +101,4 @@ const mapStateToProps = (state) => ({
     book: state.book
 });
 
-export default connect(mapStateToProps, { getBooks, deleteBook, updateBook })(BookList);
+export default connect(mapStateToProps, { getBooks, updateBook })(BookList);
