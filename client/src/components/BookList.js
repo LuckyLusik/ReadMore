@@ -7,10 +7,10 @@ import EditBook from './EditBook';
 import Img from 'react-image';
 import badImage from '../images/noimage.png';
 import DeleteBook from './DeleteBook';
+import RateBook from './RateBook';
 
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Avatar from '@material-ui/core/Avatar';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 function BookList(props) {
@@ -61,9 +61,7 @@ function BookList(props) {
                             <div className="one-book">
                                 <div style={{ width: 190,  height: 280, overflow: "hidden", position: "relative"}}>
                                     <Img src={[book.imageURL, badImage]} alt="Book Cover" style={{ width: 190, height: "auto"}} />
-                                    <Button className="button-rate" style={{ zIndex: visible[book._id] === true ? '10000' : '30000' }}>
-                                        <Avatar className="rate-style">{book.rate}</Avatar>
-                                    </Button>
+                                    <RateBook bookToEdit={book} visible={visible} refreshUpdatedBook={refreshUpdatedBook} />
                                     <div className="description" style={{ opacity: visible[book._id] === true ? '1' : '0' }}>
                                         {book.description}
                                     </div>

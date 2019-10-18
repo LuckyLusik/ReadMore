@@ -188,7 +188,7 @@ function AddBook(props) {
                             </Typography>
                             <Avatar className="rate-style">{rate}</Avatar>
                         </div>
-                        <FormHelperText id="my-helper-rate" style={{ opacity: userInput.rateCheck ? '0' : '1', color: '#EF522B', transition: 'all 500ms ease-in', fontFamily: 'Raleway' }} >Please, rate this Book.</FormHelperText>
+                        <FormHelperText id="my-helper-rate" style={{ opacity: userInput.rateCheck ? '0' : '1', color: '#EF522B', transition: 'all 500ms ease-in', fontFamily: 'Raleway' }} >Your rate of the book can't be equal to 0. Please, rate this Book.</FormHelperText>
                         <div className="wrap justify" style={{ marginTop: '1em' }}>
                             <MoodBadIcon style={{ color: '#F79820', margin: 0}}/>
                             <Slider
@@ -196,7 +196,7 @@ function AddBook(props) {
                                 onChange={handleChangeRate}
                                 aria-labelledby="discrete-slider"
                                 valueLabelDisplay="auto"
-                                step={0.5}
+                                step={1}
                                 marks
                                 min={0}
                                 max={10}

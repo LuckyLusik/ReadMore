@@ -12,11 +12,6 @@ import CardContent from '@material-ui/core/CardContent';
 import { FormControl, FormHelperText } from '@material-ui/core';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import Slider from '@material-ui/core/Slider';
-import Typography from '@material-ui/core/Typography';
-import MoodBadIcon from '@material-ui/icons/MoodBad';
-import MoodIcon from '@material-ui/icons/Mood';
-import Avatar from '@material-ui/core/Avatar';
 
 function EditBook(props) {
     const { bookToEdit, refreshUpdatedBook, updateBook } = props;
@@ -34,9 +29,7 @@ function EditBook(props) {
             description: bookToEdit.description,
             titleCheck: true,
             authorCheck: true,
-            rateCheck: true,
         });
-        setRate(bookToEdit.rate);
         setOpen(false);
     };
 
@@ -49,7 +42,6 @@ function EditBook(props) {
                 description: bookToEdit.description,
                 titleCheck: true,
                 authorCheck: true,
-                rateCheck: true,
             }
     );
     
@@ -66,15 +58,11 @@ function EditBook(props) {
         if(userInput.author.length <= 0) {
             checkIfTrue.authorCheck = false
         } else { checkIfTrue.authorCheck = true }
-        if(rate === 0) {
-            checkIfTrue.rateCheck = false
-        } else { checkIfTrue.rateCheck = true }
         setUserInput({
             titleCheck: checkIfTrue.titleCheck,
             authorCheck: checkIfTrue.authorCheck,
-            rateCheck: checkIfTrue.rateCheck,
         });
-        if(checkIfTrue.titleCheck && checkIfTrue.authorCheck & checkIfTrue.rateCheck) {
+        if(checkIfTrue.titleCheck && checkIfTrue.authorCheck) {
             const updateEverything = new Promise((resolve, reject) => {
                 const updatedBook = {
                     _id: bookToEdit._id,
@@ -82,7 +70,7 @@ function EditBook(props) {
                     author: userInput.author,
                     imageURL: userInput.imageURL,
                     description: userInput.description,
-                    rate: rate
+                    rate: bookToEdit.rate
                 };
                 resolve(updatedBook);
             })
@@ -93,11 +81,6 @@ function EditBook(props) {
                 .then(() => setOpen(false));
         }
     }
-
-    const [rate, setRate] = useState(bookToEdit.rate);
-    const handleChangeRate = (event, newValue) => {
-        setRate(newValue);
-    };
 
     return (
         <div>
@@ -134,30 +117,6 @@ function EditBook(props) {
                         <FormControl>
                             <InputLabel htmlFor="component-edit-description">Short description</InputLabel>
                             <Input name="description" type="text" id="component-edit-description" value={userInput.description} onChange={handleChange} />
-                        </FormControl>
-                        <FormControl>
-                            <div className="wrap flex-start" style={{ backgroundColor: userInput.rateCheck ? '' : '#ef522a36', transition: 'all 500ms ease-in' }}>
-                                <Typography id="discrete-slider" gutterBottom>
-                                    Rate <sup style={{ color: '#EF522B', fontSize: 40, top: '0.2em' }}>*</sup>
-                                </Typography>
-                                <Avatar className="rate-style">{rate}</Avatar>
-                            </div>
-                            <FormHelperText id="my-helper-edit-rate" style={{ opacity: userInput.rateCheck ? '0' : '1', color: '#EF522B', transition: 'all 500ms ease-in', fontFamily: 'Raleway' }} >Please, rate this Book.</FormHelperText>
-                            <div className="wrap justify">
-                                <MoodBadIcon style={{ color: '#F79820', margin: 0}}/>
-                                <Slider
-                                    defaultValue={bookToEdit.rate}
-                                    onChange={handleChangeRate}
-                                    aria-labelledby="discrete-slider"
-                                    valueLabelDisplay="auto"
-                                    step={0.5}
-                                    marks
-                                    min={0}
-                                    max={10}
-                                    name="rate"
-                                />
-                                <MoodIcon style={{ color: '#EF522B', margin: 0}} />
-                            </div>
                         </FormControl>
                     </CardContent>
                 <DialogActions>
