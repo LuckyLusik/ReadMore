@@ -69,6 +69,7 @@ function Login(props) {
     };
 
     const loginThisUser = () => {
+        clearErrors();
         const checkIfTrue = {...userInput};
         if(userInput.email.length <= 0) {
             checkIfTrue.emailCheck = false

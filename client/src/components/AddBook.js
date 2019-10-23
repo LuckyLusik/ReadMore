@@ -111,6 +111,8 @@ function AddBook(props) {
                 description: descriptionCheck,
                 rate: rate
             };
+            console.log(newBook);
+            console.log(user);
             props.addBook(newBook);
             resetBook();
             setExpanded(!expanded);

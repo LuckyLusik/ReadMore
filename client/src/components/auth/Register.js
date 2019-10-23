@@ -72,6 +72,7 @@ function Register(props) {
     };
 
     const addNewUser = () => {
+        clearErrors();
         const checkIfTrue = {...userInput};
         if(userInput.name.length <= 0) {
             checkIfTrue.nameCheck = false
