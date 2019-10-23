@@ -92,11 +92,13 @@ function BookList(props) {
 
 BookList.propTypes = {
     getBooks: PropTypes.func.isRequired,
-    book: PropTypes.object.isRequired
+    book: PropTypes.object.isRequired,
+    isAuthenticated: PropTypes.bool
 }
 
 const mapStateToProps = (state) => ({
-    book: state.book
+    book: state.book,
+    isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(mapStateToProps, { getBooks, updateBook })(BookList);

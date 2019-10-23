@@ -24,6 +24,10 @@ const ItemSchema = new Schema({
         type: String,
         required: false
     },
+    userId: {
+        type: String,
+        required: true
+    },
     date: {
         type: Date,
         default: Date.now

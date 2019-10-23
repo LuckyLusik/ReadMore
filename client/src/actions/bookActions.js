@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { GET_BOOKS, ADD_BOOK, DELETE_BOOK, UPDATE_BOOK, BOOKS_LOADING } from './types';
+import { tokenConfig } from './authActions';
+import { returnErrors } from './errorActions';
 
 export const getBooks = () => dispatch => {
     dispatch(setBooksLoading());
@@ -9,33 +11,45 @@ export const getBooks = () => dispatch => {
             type: GET_BOOKS, 
             payload: res.data
         }))
+        .catch(err =>
+            dispatch(returnErrors(err.response.data, err.response.status))
+        );
 };
 
-export const addBook = book => dispatch => {
+export const addBook = book => (dispatch, getState) => {
     axios
-        .post('/api/items', book)
+        .post('/api/items', book, tokenConfig(getState))
         .then(res => dispatch({
             type: ADD_BOOK, 
             payload: res.data
         }))
+        .catch(err =>
+            dispatch(returnErrors(err.response.data, err.response.status))
+        );
 };
 
-export const deleteBook = id => dispatch => {
+export const deleteBook = id => (dispatch, getState) => {
     axios
-        .delete(`/api/items/${id}`)
+        .delete(`/api/items/${id}`, tokenConfig(getState))
         .then(res => dispatch({
             type: DELETE_BOOK, 
             payload: id
         }))
+        .catch(err =>
+            dispatch(returnErrors(err.response.data, err.response.status))
+        );
 };
 
-export const updateBook = book => dispatch => {
+export const updateBook = book => (dispatch, getState) => {
     axios
-        .put(`/api/items/${book._id}`, book)
+        .put(`/api/items/${book._id}`, book, tokenConfig(getState))
         .then(res => dispatch({
             type: UPDATE_BOOK,
             payload: res.data
         }))
+        .catch(err =>
+            dispatch(returnErrors(err.response.data, err.response.status))
+        );
 };
 
 /*

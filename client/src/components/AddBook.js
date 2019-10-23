@@ -1,6 +1,7 @@
 import React, { useReducer, useState } from 'react';
 import { connect } from 'react-redux';
 import { addBook } from '../actions/bookActions';
+import PropTypes from 'prop-types';
 
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
@@ -32,6 +33,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function AddBook(props) {
+    const { isAuthenticated, user } = props.auth;
     const classes = useStyles();
     const [expanded, setExpanded] = useState(false);
     const handleExpandClick = () => {
@@ -102,6 +104,7 @@ function AddBook(props) {
         });
         if(checkIfTrue.titleCheck && checkIfTrue.authorCheck & checkIfTrue.rateCheck) {
             const newBook = {
+                userId: user._id,
                 title: userInput.title,
                 author: userInput.author,
                 imageURL: imageCheck,
@@ -112,25 +115,6 @@ function AddBook(props) {
             resetBook();
             setExpanded(!expanded);
         }
-        /*
-        if (title && author && imageURL && rate) {
-            setBooks([
-                ...books,
-                {
-                  id: uuid(),
-                  title: title,
-                  author: author,
-                  imageURL: imageURL,
-                  rate: rate
-                }
-            ]);
-            setTitle('');
-            setAuthor('');
-            setImageURL('');
-            setRate('');
-            setExpanded(false);
-        }
-        */
     };
 
     return (
@@ -227,8 +211,13 @@ function AddBook(props) {
     )
 }
 
+AddBook.propTypes = {
+    auth: PropTypes.object.isRequired
+}
+
 const mapStateToProps = (state) => ({
-    book: state.book
+    book: state.book,
+    auth: state.auth
 });
 
 export default connect(mapStateToProps, { addBook })(AddBook);
