@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { deleteBook } from '../actions/bookActions';
+import PropTypes from 'prop-types';
 
 import Button from '@material-ui/core/Button';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
@@ -10,6 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import CardContent from '@material-ui/core/CardContent';
 
 function DeleteBook(props) {
+    const { isAuthenticated, user } = props.auth;
     const { bookToDelete, deleteBook } = props;
 
     const [open, setOpen] = useState(false);
@@ -29,7 +31,14 @@ function DeleteBook(props) {
 
     return (
         <div>
-            <Button style={{ color: '#274156' }} onClick={handleClickOpen}><DeleteForeverIcon /></Button>
+            { (isAuthenticated && bookToDelete.userId === user._id) ? 
+                <Button className="active-icon" onClick={handleClickOpen} >
+                    <DeleteForeverIcon />
+                </Button> : 
+                <Button className="active-icon" onClick={handleClickOpen} disabled >
+                    <DeleteForeverIcon />
+                </Button>
+            }
             <Dialog style={{ zIndex: '45000' }} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="editBookWindow">
                 <DialogTitle id="form-dialog-delete" className="deleteBtn">Are you sure?</DialogTitle>
                     <CardContent className="editBook">
@@ -50,8 +59,13 @@ function DeleteBook(props) {
     )
 }
 
+DeleteBook.propTypes = {
+    auth: PropTypes.object.isRequired
+}
+
 const mapStateToProps = (state) => ({
-    book: state.book
+    book: state.book,
+    auth: state.auth
 });
 
 export default connect(mapStateToProps, { deleteBook })(DeleteBook);

@@ -23,9 +23,29 @@ $light-orange: #F79820;
     transition: all 500ms ease-in;
 }
 
+.active-icon {
+    color: $dark-blue;
+}
+
+.disable-icon {
+    color: rgba(39, 65, 86, 0.41);
+}
+
 body {
     font-family: 'Raleway', "Droid Sans", "Helvetica Neue", sans-serif;
     background-color: $light-yellow;
+
+    .user-name {
+        font-family: 'Raleway', "Droid Sans", "Helvetica Neue", sans-serif;
+        color: $light-orange;
+        font-style: italic;
+    }
+
+    .info {
+        font-family: 'Raleway', "Droid Sans", "Helvetica Neue", sans-serif;
+        color: $dark-blue;
+        margin: 0px auto;
+    }
 
     .middle-box {
         width: 80%;
@@ -51,7 +71,7 @@ body {
 
     .MuiButton-containedSecondary {
         color: #fff;
-        margin: 0 0 2em 0;
+        margin: 0 auto 2em auto;
         box-shadow: none;
         background-color: #71A9F7;
     }
@@ -293,7 +313,7 @@ body {
         }
 
         .MuiButton-containedSecondary {
-            color: $almost-white;
+            color: white;
             margin: 0 0 0 1em;
             background-color: $bright-red;
         }
@@ -347,6 +367,10 @@ body {
             transition: all 250ms ease-in;
         }
 
+        .rate-style.unable {
+            background-color: rgba(0, 0, 0, 0.26);
+        }
+
         .rate-style:hover {
             background-color: $light-orange;
             transition: all 250ms ease-in;
@@ -372,7 +396,7 @@ body {
 
     .navbar .MuiAppBar-colorPrimary {
         background-color: $dark-blue;
-        color: $almost-white;
+        color: white;
         flex-grow: 1;
     }
 

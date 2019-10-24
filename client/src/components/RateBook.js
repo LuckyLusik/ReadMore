@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { updateBook } from '../actions/bookActions';
+import PropTypes from 'prop-types';
 
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
@@ -15,6 +16,7 @@ import MoodBadIcon from '@material-ui/icons/MoodBad';
 import MoodIcon from '@material-ui/icons/Mood';
 
 function RateBook(props) {
+    const { isAuthenticated, user } = props.auth;
     const { bookToEdit, refreshUpdatedBook, updateBook, visible } = props;
     const [open, setOpen] = useState(false);
 
@@ -55,12 +57,22 @@ function RateBook(props) {
 
     return (
         <div>
-            <Button 
-            className="button-rate" 
-            style={{ zIndex: visible[bookToEdit._id] === true ? '10000' : '30000' }}
-            onClick={handleClickOpen}>
-                <Avatar className="rate-style">{bookToEdit.rate}</Avatar>
-            </Button>
+            { (isAuthenticated && bookToEdit.userId === user._id) ? 
+                <Button 
+                    className="button-rate" 
+                    style={{ zIndex: visible[bookToEdit._id] === true ? '10000' : '30000' }}
+                    onClick={handleClickOpen}>
+                    <Avatar className="rate-style">{bookToEdit.rate}</Avatar>
+                </Button> : 
+                <Button 
+                    className="button-rate" 
+                    style={{ zIndex: visible[bookToEdit._id] === true ? '10000' : '30000' }}
+                    onClick={handleClickOpen}
+                    disabled>
+                    <Avatar className="rate-style unable">{bookToEdit.rate}</Avatar>
+                </Button>
+            }
+            
             <Dialog style={{ zIndex: '40000' }} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="editBookWindow">
                 <DialogTitle id="form-dialog-rate">Rate This Book</DialogTitle>
                     <CardContent className="editBook">
@@ -112,8 +124,13 @@ function RateBook(props) {
     )
 }
 
+RateBook.propTypes = {
+    auth: PropTypes.object.isRequired
+}
+
 const mapStateToProps = (state) => ({
-    book: state.book
+    book: state.book,
+    auth: state.auth
 });
 
 export default connect(mapStateToProps, { updateBook })(RateBook);

@@ -12,6 +12,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 //import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const useStyles = makeStyles(theme => ({
     menuButton: {
@@ -25,9 +26,10 @@ function AppNavbar(props) {
 
     const authLinks = (
         <Fragment>
-            <Typography>
-              <strong>{user ? `Welcome ${user.name}` : ''}</strong>
+            <Typography className="user-name">
+              {user ? `Welcome ${user.name}!` : ''}
             </Typography>
+            <AccountCircleIcon style={{ margin: 0, paddingLeft: '16px', color: '#F79820' }}/>
             <Logout />
         </Fragment>
       );
@@ -35,6 +37,9 @@ function AppNavbar(props) {
       const guestLinks = (
         <Fragment>
             <Register />
+            <Typography style={{ color: '#EF522B' }}>
+                |
+            </Typography>
             <Login />
         </Fragment>
       );

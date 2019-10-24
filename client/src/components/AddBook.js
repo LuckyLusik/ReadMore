@@ -111,8 +111,6 @@ function AddBook(props) {
                 description: descriptionCheck,
                 rate: rate
             };
-            console.log(newBook);
-            console.log(user);
             props.addBook(newBook);
             resetBook();
             setExpanded(!expanded);
@@ -122,18 +120,20 @@ function AddBook(props) {
     return (
         <div className="middle-box">
             <CardActions disableSpacing>
-                <Button 
-                    variant="contained" 
-                    color="secondary"
-                    onClick={handleExpandClick}
-                    aria-expanded={expanded}
-                    aria-label="show more"
-                >
+                { isAuthenticated ? 
+                    <Button 
+                        variant="contained" 
+                        color="secondary"
+                        onClick={handleExpandClick}
+                        aria-expanded={expanded}
+                        aria-label="show more"
+                    >
                     <AddIcon className={clsx(classes.expand, {
                         [classes.expandOpen]: expanded,
                     })}/>
                     Add a New Book
-                </Button>
+                    </Button> : <Typography className="info">Please, <span style={{ fontStyle: 'italic' }}>log in</span> to manage books.</Typography>
+                }
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit className="addBook">
                 <CardContent>

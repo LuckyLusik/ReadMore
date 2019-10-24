@@ -1,6 +1,7 @@
 import React, { useState, useReducer } from 'react';
 import { connect } from 'react-redux';
 import { updateBook } from '../actions/bookActions';
+import PropTypes from 'prop-types';
 
 import EditIcon from '@material-ui/icons/Edit';
 import Button from '@material-ui/core/Button';
@@ -14,6 +15,7 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 
 function EditBook(props) {
+    const { isAuthenticated, user } = props.auth;
     const { bookToEdit, refreshUpdatedBook, updateBook } = props;
     const [open, setOpen] = useState(false);
 
@@ -84,7 +86,14 @@ function EditBook(props) {
 
     return (
         <div>
-            <Button style={{ color: '#274156' }} onClick={handleClickOpen}><EditIcon /></Button>
+            { (isAuthenticated && bookToEdit.userId === user._id) ?
+                <Button className="active-icon" onClick={handleClickOpen}>
+                    <EditIcon />
+                </Button> : 
+                <Button className="active-icon" onClick={handleClickOpen} disabled>
+                    <EditIcon />
+                </Button>
+            }
             <Dialog style={{ zIndex: '40000' }} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="editBookWindow">
                 <DialogTitle id="form-dialog-title">Edit Book's Info</DialogTitle>
                     <CardContent className="editBook">
@@ -132,8 +141,13 @@ function EditBook(props) {
     )
 }
 
+EditBook.propTypes = {
+    auth: PropTypes.object.isRequired
+}
+
 const mapStateToProps = (state) => ({
-    book: state.book
+    book: state.book,
+    auth: state.auth
 });
 
 export default connect(mapStateToProps, { updateBook })(EditBook);
