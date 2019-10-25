@@ -28,6 +28,7 @@ const ItemSchema = new Schema({
         type: String,
         required: true
     },
+    votedIds: [String],
     date: {
         type: Date,
         default: Date.now

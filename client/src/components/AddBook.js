@@ -107,6 +107,7 @@ function AddBook(props) {
                 userId: user._id,
                 title: userInput.title,
                 author: userInput.author,
+                votedIds: [user._id],
                 imageURL: imageCheck,
                 description: descriptionCheck,
                 rate: rate

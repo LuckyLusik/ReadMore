@@ -22,6 +22,7 @@ router.post('/', auth, (req, res) => {
         author: req.body.author,
         title: req.body.title,
         userId: req.body.userId,
+        votedIds: req.body.votedIds,
         imageURL: req.body.imageURL,
         description: req.body.description,
         rate: req.body.rate

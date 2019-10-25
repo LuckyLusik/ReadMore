@@ -110,6 +110,7 @@ body {
     .addBook .MuiInputBase-input {
         font-family: 'Raleway', "Droid Sans", "Helvetica Neue", sans-serif;
         color: $dark-blue;
+        font-size: 1.5em;
     }
 
     .addBook .MuiInput-underline:before {
@@ -235,6 +236,12 @@ body {
     }
 
     .editBook {
+        .MuiInputBase-input {
+            font-family: 'Raleway', "Droid Sans", "Helvetica Neue", sans-serif;
+            color: $dark-blue;
+            font-size: 1.5em;
+        }
+
         .MuiFormControl-root {
             width: 100%;
             margin-bottom: 1.2em;

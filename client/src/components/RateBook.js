@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { updateBook } from '../actions/bookActions';
 import PropTypes from 'prop-types';
@@ -26,9 +26,19 @@ function RateBook(props) {
 
     const handleClose = () => {
         setRateCheck(true);
-        setRate(bookToEdit.rate);
+        setRate(0);
         setOpen(false);
     };
+
+    const votedArray = bookToEdit.votedIds;
+    const [curUser, setCurUser] = useState(true);
+    useEffect(() => {
+        if(user) {
+            for(let vote of votedArray) {
+                if(vote === user._id) setCurUser(false);
+            }
+        } else setCurUser(true);
+    }, [curUser, user, votedArray]);
 
     const handleEditBook = () => {
         let rateHelp = rateCheck;
@@ -37,8 +47,11 @@ function RateBook(props) {
         } else { rateHelp = true }
         setRateCheck(rateHelp);
         if(rateHelp){
+            votedArray.push(user._id);
+            const rateSum = (bookToEdit.rate + rate) / votedArray.length;
             const updateRate = new Promise((resolve, reject) => {
-                const updatedBook = { ...bookToEdit, rate: rate };
+                const newRate = Math.floor(rateSum * 10) / 10 ;
+                const updatedBook = { ...bookToEdit, votedIds: votedArray, rate: newRate };
                 resolve(updatedBook);
             })
             updateRate
@@ -48,16 +61,15 @@ function RateBook(props) {
         }
     };
 
-    const [rate, setRate] = useState(bookToEdit.rate);
+    const [rate, setRate] = useState(0);
     const handleChangeRate = (event, newValue) => {
         setRate(newValue);
     };
 
     const [rateCheck, setRateCheck] = useState(true);
-
     return (
         <div>
-            { (isAuthenticated && bookToEdit.userId === user._id) ? 
+            { (isAuthenticated && curUser) ? 
                 <Button 
                     className="button-rate" 
                     style={{ zIndex: visible[bookToEdit._id] === true ? '10000' : '30000' }}
@@ -97,7 +109,7 @@ function RateBook(props) {
                             <div className="wrap justify" style={{ flexWrap: 'nowrap' }}>
                                 <MoodBadIcon style={{ color: '#F79820', margin: '0 0.5em 0 0'}}/>
                                 <Slider
-                                    defaultValue={bookToEdit.rate}
+                                    defaultValue={0}
                                     onChange={handleChangeRate}
                                     aria-labelledby="discrete-slider"
                                     valueLabelDisplay="auto"
