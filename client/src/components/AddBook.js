@@ -110,7 +110,7 @@ function AddBook(props) {
                 votedIds: [user._id],
                 imageURL: imageCheck,
                 description: descriptionCheck,
-                rate: rate
+                rate: [rate]
             };
             props.addBook(newBook);
             resetBook();
@@ -171,7 +171,7 @@ function AddBook(props) {
                     <FormControl>
                         <div className="wrap flex-start" style={{ backgroundColor: userInput.rateCheck ? '' : '#ef522a36', transition: 'all 500ms ease-in' }}>
                             <Typography id="discrete-slider" gutterBottom>
-                                Rate <sup style={{ color: '#EF522B', fontSize: 40, top: '0.2em' }}>*</sup>
+                                Your rating <sup style={{ color: '#EF522B', fontSize: 40, top: '0.2em' }}>*</sup>
                             </Typography>
                             <Avatar className="rate-style">{rate}</Avatar>
                         </div>

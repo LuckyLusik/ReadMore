@@ -12,16 +12,21 @@ import CardContent from '@material-ui/core/CardContent';
 import { FormControl, FormHelperText } from '@material-ui/core';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import Collapse from '@material-ui/core/Collapse';
 
 function Register(props) {
     const { register, error, isAuthenticated, clearErrors } = props;
     const [open, setOpen] = useState(false);
+    const [expanded, setExpanded] = useState(false);
 
     useEffect(() => {
         if (error.id === 'REGISTER_FAIL') {
             setUserInput({ msg: error.msg.msg });
+            setExpanded(true);
         } else {
         setUserInput({ msg: null });
+        setExpanded(false);
         }
         if (open) {
             if (isAuthenticated) {
@@ -102,8 +107,11 @@ function Register(props) {
         <div>
             <Button color="inherit" onClick={handleClickOpen}>Register</Button>
             <Dialog style={{ zIndex: '45000' }} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="editBookWindow">
-                <DialogTitle id="form-dialog-register" className="editBookWindow">Register</DialogTitle>
-                    <CardContent className="editBook">
+                <DialogTitle id="form-dialog-register" className="editBookWindow">
+                    <VpnKeyIcon style={{ width: '2em', height: '2em' }}/>
+                    Register
+                </DialogTitle>
+                <CardContent className="editBook">
                     <FormControl style={{ marginBottom: 0 }}>
                         <InputLabel htmlFor="component-name">Name <sup style={{ color: '#EF522B', fontSize: 40, top: '0.2em' }}>*</sup></InputLabel>
                         <Input 
@@ -137,10 +145,12 @@ function Register(props) {
                         onChange={handleChange} />
                         <FormHelperText id="my-helper-password" style={{ opacity: userInput.passwordCheck ? '0' : '1', color: '#EF522B', transition: 'all 500ms ease-in', fontFamily: 'Raleway' }} >Please, enter your password.</FormHelperText>
                     </FormControl>
-                    <div>
-                        { userInput.msg ? <p>{userInput.msg}</p> : null }
-                    </div>
-                    </CardContent>
+                    <Collapse in={expanded} timeout="auto" unmountOnExit>
+                        <CardContent style={{ backgroundColor: '#ef522a36', color: '#EF522B' }}>
+                            {userInput.msg}
+                        </CardContent>
+                    </Collapse>
+                </CardContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="secondary" variant="contained" className="cancelButton">
                         Cancel

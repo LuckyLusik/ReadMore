@@ -95,7 +95,10 @@ function EditBook(props) {
                 </Button>
             }
             <Dialog style={{ zIndex: '40000' }} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="editBookWindow">
-                <DialogTitle id="form-dialog-title">Edit Book's Info</DialogTitle>
+                <DialogTitle id="form-dialog-title">
+                    <EditIcon style={{ width: '2em', height: '2em' }}/>
+                    Edit Book's Info
+                </DialogTitle>
                     <CardContent className="editBook">
                         <FormControl style={{ marginBottom: 0 }}>
                             <InputLabel htmlFor="component-edit-author">Author (Last and First Names) <sup style={{ color: '#EF522B', fontSize: 40, top: '0.2em' }}>*</sup></InputLabel>

@@ -14,6 +14,7 @@ import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
 import MoodBadIcon from '@material-ui/icons/MoodBad';
 import MoodIcon from '@material-ui/icons/Mood';
+import StarsIcon from '@material-ui/icons/Stars';
 
 function RateBook(props) {
     const { isAuthenticated, user } = props.auth;
@@ -30,15 +31,27 @@ function RateBook(props) {
         setOpen(false);
     };
 
+    const rateArray = bookToEdit.rate;
+    const avarageRate = (rateArray) => {
+        let realRate = 0;
+        for(let curRate of rateArray){
+            realRate = realRate + curRate;
+        }
+        return realRate = Math.floor((realRate / rateArray.length) * 10) / 10;
+    }
+
     const votedArray = bookToEdit.votedIds;
     const [curUser, setCurUser] = useState(true);
+    const [curRate, setCurRate] = useState(0);
+    let initRate = avarageRate(rateArray);
     useEffect(() => {
         if(user) {
             for(let vote of votedArray) {
                 if(vote === user._id) setCurUser(false);
             }
         } else setCurUser(true);
-    }, [curUser, user, votedArray]);
+        setCurRate(initRate);
+    }, [curUser, user, votedArray, initRate]);
 
     const handleEditBook = () => {
         let rateHelp = rateCheck;
@@ -48,15 +61,16 @@ function RateBook(props) {
         setRateCheck(rateHelp);
         if(rateHelp){
             votedArray.push(user._id);
-            const rateSum = (bookToEdit.rate + rate) / votedArray.length;
+            rateArray.push(rate);
             const updateRate = new Promise((resolve, reject) => {
-                const newRate = Math.floor(rateSum * 10) / 10 ;
-                const updatedBook = { ...bookToEdit, votedIds: votedArray, rate: newRate };
+                initRate = avarageRate(rateArray);
+                const updatedBook = { ...bookToEdit, votedIds: votedArray, rate: rateArray };
                 resolve(updatedBook);
             })
             updateRate
                 .then((updatedBook) => updateBook(updatedBook))
                 .then(() => refreshUpdatedBook())
+                .then(() => setRate(0))
                 .then(() => setOpen(false));
         }
     };
@@ -74,26 +88,34 @@ function RateBook(props) {
                     className="button-rate" 
                     style={{ zIndex: visible[bookToEdit._id] === true ? '10000' : '30000' }}
                     onClick={handleClickOpen}>
-                    <Avatar className="rate-style">{bookToEdit.rate}</Avatar>
+                    <Avatar className="rate-style">{curRate}</Avatar>
                 </Button> : 
                 <Button 
                     className="button-rate" 
                     style={{ zIndex: visible[bookToEdit._id] === true ? '10000' : '30000' }}
                     onClick={handleClickOpen}
                     disabled>
-                    <Avatar className="rate-style unable">{bookToEdit.rate}</Avatar>
+                    <Avatar className="rate-style unable">{curRate}</Avatar>
                 </Button>
             }
             
             <Dialog style={{ zIndex: '40000' }} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="editBookWindow">
-                <DialogTitle id="form-dialog-rate">Rate This Book</DialogTitle>
+                <DialogTitle id="form-dialog-rate">
+                    <StarsIcon style={{ width: '2em', height: '2em' }}/>
+                    Rate This Book
+                </DialogTitle>
                     <CardContent className="editBook">
                         <FormControl>
-                            <div style={{ color: '#274156', padding: '10px 10px 10px 0' }}>{bookToEdit.author}</div>
-                            <div style={{ color: '#274156', fontWeight: '700', padding: '10px 10px 10px 0' }}>{bookToEdit.title}</div>
+                            <div style={{ color: '#274156', padding: '10px 10px 10px 0', fontSize: '1.5em' }}>{bookToEdit.author}</div>
+                            <div style={{ color: '#274156', fontWeight: '700', padding: '10px 10px 10px 0', fontSize: '1.5em' }}>{bookToEdit.title}</div>
+                            <div>
+                                <Typography>
+                                    Book's rating <span style={{ color: '#EF522B', fontSize: '1.3em', margin: '0 0.2em' }}>{curRate}</span> based on <span style={{ color: '#EF522B', fontSize: '1.3em', margin: '0 0.2em' }}>{rateArray.length}</span> people voted.
+                                </Typography>
+                            </div>
                             <div className="wrap flex-start" style={{ backgroundColor: rateCheck ? '' : '#ef522a36', transition: 'all 500ms ease-in' }}>
                                 <Typography id="discrete-slider" gutterBottom>
-                                    Your Rate
+                                    Your rating
                                 </Typography>
                                 <Avatar className="rate-style">{rate}</Avatar>
                             </div>

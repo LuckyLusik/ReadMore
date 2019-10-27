@@ -16,10 +16,7 @@ const ItemSchema = new Schema({
         type: String,
         required: false
     },
-    rate: {
-        type: Number,
-        required: true
-    },
+    rate: [Number],
     description: {
         type: String,
         required: false

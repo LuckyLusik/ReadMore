@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 //import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import LockIcon from '@material-ui/icons/Lock';
 
 const useStyles = makeStyles(theme => ({
     menuButton: {
@@ -37,9 +38,7 @@ function AppNavbar(props) {
       const guestLinks = (
         <Fragment>
             <Register />
-            <Typography style={{ color: '#EF522B' }}>
-                |
-            </Typography>
+            <LockIcon style={{ color: '#EF522B', marginRight: '0px' }}/>
             <Login />
         </Fragment>
       );

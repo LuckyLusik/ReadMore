@@ -40,12 +40,15 @@ function DeleteBook(props) {
                 </Button>
             }
             <Dialog style={{ zIndex: '45000' }} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="editBookWindow">
-                <DialogTitle id="form-dialog-delete" className="deleteBtn">Are you sure?</DialogTitle>
-                    <CardContent className="editBook">
-                        <div style={{ color: '#EF522B', fontWeight: '700', padding: '10px' }}>DELETE</div>
-                        <div style={{ color: '#274156', padding: '10px' }}>{bookToDelete.author}</div>
-                        <div style={{ color: '#274156', fontWeight: '700', padding: '10px' }}>{bookToDelete.title}</div>
-                    </CardContent>
+                <DialogTitle id="form-dialog-delete" className="deleteBtn">
+                    <DeleteForeverIcon style={{ width: '2em', height: '2em' }}/>
+                    Are you sure?
+                </DialogTitle>
+                <CardContent className="editBook">
+                    <div style={{ color: '#EF522B', fontWeight: '700', padding: '10px' }}>DELETE</div>
+                    <div style={{ color: '#274156', padding: '10px', fontSize: '1.5em' }}>{bookToDelete.author}</div>
+                    <div style={{ color: '#274156', fontWeight: '700', padding: '10px', fontSize: '1.5em' }}>{bookToDelete.title}</div>
+                </CardContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="secondary" variant="contained" className="cancelButton">
                         No
