@@ -8,10 +8,7 @@ const ItemSchema = new Schema({
         type: String,
         required: true
     },
-    author: {
-        type: String,
-        required: true
-    },
+    author: [String],
     imageURL: {
         type: String,
         required: false

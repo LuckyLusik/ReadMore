@@ -26,11 +26,13 @@ function EditBook(props) {
     const handleClose = () => {
         setUserInput({
             title: bookToEdit.title,
-            author: bookToEdit.author,
+            authorFirst: bookToEdit.author[1],
+            authorLast: bookToEdit.author[0],
             imageURL: bookToEdit.imageURL,
             description: bookToEdit.description,
             titleCheck: true,
-            authorCheck: true,
+            authorFirstCheck: true,
+            authorLastCheck: true
         });
         setOpen(false);
     };
@@ -39,11 +41,13 @@ function EditBook(props) {
         (state, newState) => ({...state, ...newState}),
             {
                 title: bookToEdit.title,
-                author: bookToEdit.author,
+                authorFirst: bookToEdit.author[1],
+                authorLast: bookToEdit.author[0],
                 imageURL: bookToEdit.imageURL,
                 description: bookToEdit.description,
                 titleCheck: true,
-                authorCheck: true,
+                authorFirstCheck: true,
+                authorLastCheck: true
             }
     );
     
@@ -57,19 +61,24 @@ function EditBook(props) {
         if(userInput.title.length <= 0) {
             checkIfTrue.titleCheck = false
         } else { checkIfTrue.titleCheck = true }
-        if(userInput.author.length <= 0) {
-            checkIfTrue.authorCheck = false
-        } else { checkIfTrue.authorCheck = true }
+        if(userInput.authorFirst.length <= 0) {
+            checkIfTrue.authorFirstCheck = false
+        } else { checkIfTrue.authorFirstCheck = true }
+        if(userInput.authorLast.length <= 0) {
+            checkIfTrue.authorLastCheck = false
+        } else { checkIfTrue.authorLastCheck = true }
         setUserInput({
             titleCheck: checkIfTrue.titleCheck,
-            authorCheck: checkIfTrue.authorCheck,
+            authorFirstCheck: checkIfTrue.authorFirstCheck,
+            authorLastCheck: checkIfTrue.authorLastCheck,
         });
-        if(checkIfTrue.titleCheck && checkIfTrue.authorCheck) {
+        if(checkIfTrue.titleCheck && checkIfTrue.authorFirstCheck && checkIfTrue.authorLastCheck) {
             const updateEverything = new Promise((resolve, reject) => {
+                const authorFull = [userInput.authorLast, userInput.authorFirst]
                 const updatedBook = {
                     _id: bookToEdit._id,
                     title: userInput.title,
-                    author: userInput.author,
+                    author: authorFull,
                     imageURL: userInput.imageURL,
                     description: userInput.description,
                     rate: bookToEdit.rate
@@ -100,18 +109,29 @@ function EditBook(props) {
                     Edit Book's Info
                 </DialogTitle>
                     <CardContent className="editBook">
-                        <FormControl style={{ marginBottom: 0 }}>
-                            <InputLabel htmlFor="component-edit-author">Author (Last and First Names) <sup style={{ color: '#EF522B', fontSize: 40, top: '0.2em' }}>*</sup></InputLabel>
+                        <FormControl style={{ marginBottom: '0.5em' }}>
+                            <InputLabel htmlFor="component-authorFirst">Author's First Name <sup style={{ color: '#EF522B', fontSize: 40, top: '0.2em' }}>*</sup></InputLabel>
                             <Input 
-                            name="author" 
+                            name="authorFirst" 
                             type="text" 
-                            id="component-edit-author" 
-                            style={{ backgroundColor: userInput.authorCheck ? '' : '#ef522a36', transition: 'all 500ms ease-in' }}
-                            value={userInput.author} 
+                            id="component-authorFirst" 
+                            style={{ backgroundColor: userInput.authorFirstCheck ? '' : '#ef522a36', transition: 'all 500ms ease-in' }}
+                            value={userInput.authorFirst} 
                             onChange={handleChange} />
-                            <FormHelperText id="my-helper-edit-author" style={{ opacity: userInput.authorCheck ? '0' : '1', color: '#EF522B', transition: 'all 500ms ease-in', fontFamily: 'Raleway' }} >Please, enter an Author.</FormHelperText>
+                            <FormHelperText id="my-helper-authorFirst" style={{ opacity: userInput.authorFirstCheck ? '0' : '1', color: '#EF522B', transition: 'all 500ms ease-in', fontFamily: 'Raleway' }} >Please, enter an Author's First Name.</FormHelperText>
                         </FormControl>
-                        <FormControl style={{ marginBottom: 0 }}>
+                        <FormControl style={{ marginBottom: '0.5em' }}>
+                            <InputLabel htmlFor="component-authorLast">Author's Last Name <sup style={{ color: '#EF522B', fontSize: 40, top: '0.2em' }}>*</sup></InputLabel>
+                            <Input 
+                            name="authorLast" 
+                            type="text" 
+                            id="component-authorLast" 
+                            style={{ backgroundColor: userInput.authorLastCheck ? '' : '#ef522a36', transition: 'all 500ms ease-in' }}
+                            value={userInput.authorLast} 
+                            onChange={handleChange} />
+                            <FormHelperText id="my-helper-authorLast" style={{ opacity: userInput.authorLastCheck ? '0' : '1', color: '#EF522B', transition: 'all 500ms ease-in', fontFamily: 'Raleway' }} >Please, enter an Author's Last Name.</FormHelperText>
+                        </FormControl>
+                        <FormControl style={{ marginBottom: '0.5em' }}>
                             <InputLabel htmlFor="component-edit-title">Title <sup style={{ color: '#EF522B', fontSize: 40, top: '0.2em' }}>*</sup></InputLabel>
                             <Input 
                             name="title" 

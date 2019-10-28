@@ -49,11 +49,13 @@ function AddBook(props) {
         (state, newState) => ({...state, ...newState}),
             {
                 title: '',
-                author: '',
+                authorFirst: '',
+                authorLast: '',
                 imageURL: '',
                 description: '',
                 titleCheck: true,
-                authorCheck: true,
+                authorFirstCheck: true,
+                authorLastCheck: true,
                 rateCheck: true,
             }
     );
@@ -66,11 +68,13 @@ function AddBook(props) {
     const resetBook = () => {
         setUserInput({
             title: '',
-            author: '',
+            authorFirst: '',
+            authorLast: '',
             imageURL: '',
             description: '',
             titleCheck: true,
-            authorCheck: true,
+            authorFirstCheck: true,
+            authorLastCheck: true,
             rateCheck: true,
         });
         setRate(0);
@@ -91,22 +95,27 @@ function AddBook(props) {
         if(userInput.title.length <= 0) {
             checkIfTrue.titleCheck = false
         } else { checkIfTrue.titleCheck = true }
-        if(userInput.author.length <= 0) {
-            checkIfTrue.authorCheck = false
-        } else { checkIfTrue.authorCheck = true }
+        if(userInput.authorFirst.length <= 0) {
+            checkIfTrue.authorFirstCheck = false
+        } else { checkIfTrue.authorFirstCheck = true }
+        if(userInput.authorLast.length <= 0) {
+            checkIfTrue.authorLastCheck = false
+        } else { checkIfTrue.authorLastCheck = true }
         if(rate === 0) {
             checkIfTrue.rateCheck = false
         } else { checkIfTrue.rateCheck = true }
         setUserInput({
             titleCheck: checkIfTrue.titleCheck,
-            authorCheck: checkIfTrue.authorCheck,
+            authorFirstCheck: checkIfTrue.authorFirstCheck,
+            authorLastCheck: checkIfTrue.authorLastCheck,
             rateCheck: checkIfTrue.rateCheck,
         });
-        if(checkIfTrue.titleCheck && checkIfTrue.authorCheck & checkIfTrue.rateCheck) {
+        if(checkIfTrue.titleCheck && checkIfTrue.authorFirstCheck && checkIfTrue.authorLastCheck && checkIfTrue.rateCheck) {
+            const authorFull = [userInput.authorLast, userInput.authorFirst]
             const newBook = {
                 userId: user._id,
                 title: userInput.title,
-                author: userInput.author,
+                author: authorFull,
                 votedIds: [user._id],
                 imageURL: imageCheck,
                 description: descriptionCheck,
@@ -138,18 +147,29 @@ function AddBook(props) {
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit className="addBook">
                 <CardContent>
-                    <FormControl style={{ marginBottom: 0 }}>
-                        <InputLabel htmlFor="component-author">Author (Last and First Names) <sup style={{ color: '#EF522B', fontSize: 40, top: '0.2em' }}>*</sup></InputLabel>
+                    <FormControl style={{ marginBottom: '0.5em' }}>
+                        <InputLabel htmlFor="component-authorFirst">Author's First Name <sup style={{ color: '#EF522B', fontSize: 40, top: '0.2em' }}>*</sup></InputLabel>
                         <Input 
-                        name="author" 
+                        name="authorFirst" 
                         type="text" 
-                        id="component-author" 
-                        style={{ backgroundColor: userInput.authorCheck ? '' : '#ef522a36', transition: 'all 500ms ease-in' }}
-                        value={userInput.author} 
+                        id="component-authorFirst" 
+                        style={{ backgroundColor: userInput.authorFirstCheck ? '' : '#ef522a36', transition: 'all 500ms ease-in' }}
+                        value={userInput.authorFirst} 
                         onChange={handleChange} />
-                        <FormHelperText id="my-helper-author" style={{ opacity: userInput.authorCheck ? '0' : '1', color: '#EF522B', transition: 'all 500ms ease-in', fontFamily: 'Raleway' }} >Please, enter an Author.</FormHelperText>
+                        <FormHelperText id="my-helper-authorFirst" style={{ opacity: userInput.authorFirstCheck ? '0' : '1', color: '#EF522B', transition: 'all 500ms ease-in', fontFamily: 'Raleway' }} >Please, enter an Author's First Name.</FormHelperText>
                     </FormControl>
-                    <FormControl style={{ marginBottom: 0 }}>
+                    <FormControl style={{ marginBottom: '0.5em' }}>
+                        <InputLabel htmlFor="component-authorLast">Author's Last Name <sup style={{ color: '#EF522B', fontSize: 40, top: '0.2em' }}>*</sup></InputLabel>
+                        <Input 
+                        name="authorLast" 
+                        type="text" 
+                        id="component-authorLast" 
+                        style={{ backgroundColor: userInput.authorLastCheck ? '' : '#ef522a36', transition: 'all 500ms ease-in' }}
+                        value={userInput.authorLast} 
+                        onChange={handleChange} />
+                        <FormHelperText id="my-helper-authorLast" style={{ opacity: userInput.authorLastCheck ? '0' : '1', color: '#EF522B', transition: 'all 500ms ease-in', fontFamily: 'Raleway' }} >Please, enter an Author's Last Name.</FormHelperText>
+                    </FormControl>
+                    <FormControl style={{ marginBottom: '0.5em' }}>
                         <InputLabel htmlFor="component-title">Title <sup style={{ color: '#EF522B', fontSize: 40, top: '0.2em' }}>*</sup></InputLabel>
                         <Input 
                         name="title" 
@@ -165,13 +185,13 @@ function AddBook(props) {
                         <Input name="imageURL" type="text" id="component-imageURL" value={userInput.imageURL} onChange={handleChange} />
                     </FormControl>
                     <FormControl>
-                        <InputLabel htmlFor="component-description">Short description</InputLabel>
+                        <InputLabel htmlFor="component-description">Short Description</InputLabel>
                         <Input name="description" type="text" id="component-description" value={userInput.description} onChange={handleChange} />
                     </FormControl>
                     <FormControl>
                         <div className="wrap flex-start" style={{ backgroundColor: userInput.rateCheck ? '' : '#ef522a36', transition: 'all 500ms ease-in' }}>
                             <Typography id="discrete-slider" gutterBottom>
-                                Your rating <sup style={{ color: '#EF522B', fontSize: 40, top: '0.2em' }}>*</sup>
+                                Your Rating <sup style={{ color: '#EF522B', fontSize: 40, top: '0.2em' }}>*</sup>
                             </Typography>
                             <Avatar className="rate-style">{rate}</Avatar>
                         </div>

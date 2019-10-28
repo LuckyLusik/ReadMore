@@ -68,7 +68,7 @@ function BookList(props) {
                                     
                                 </div>
                                 <div className="author-style">
-                                    {book.author}
+                                    {book.author[0]} {book.author[1]}
                                 </div>
                                 <div className="title-style">
                                     {book.title}

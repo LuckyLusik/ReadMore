@@ -46,7 +46,7 @@ function DeleteBook(props) {
                 </DialogTitle>
                 <CardContent className="editBook">
                     <div style={{ color: '#EF522B', fontWeight: '700', padding: '10px' }}>DELETE</div>
-                    <div style={{ color: '#274156', padding: '10px', fontSize: '1.5em' }}>{bookToDelete.author}</div>
+                    <div style={{ color: '#274156', padding: '10px', fontSize: '1.5em' }}>{bookToDelete.author[0]} {bookToDelete.author[1]}</div>
                     <div style={{ color: '#274156', fontWeight: '700', padding: '10px', fontSize: '1.5em' }}>{bookToDelete.title}</div>
                 </CardContent>
                 <DialogActions>

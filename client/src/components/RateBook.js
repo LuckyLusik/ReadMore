@@ -106,16 +106,16 @@ function RateBook(props) {
                 </DialogTitle>
                     <CardContent className="editBook">
                         <FormControl>
-                            <div style={{ color: '#274156', padding: '10px 10px 10px 0', fontSize: '1.5em' }}>{bookToEdit.author}</div>
+                            <div style={{ color: '#274156', padding: '10px 10px 10px 0', fontSize: '1.5em' }}>{bookToEdit.author[0]} {bookToEdit.author[1]}</div>
                             <div style={{ color: '#274156', fontWeight: '700', padding: '10px 10px 10px 0', fontSize: '1.5em' }}>{bookToEdit.title}</div>
                             <div>
                                 <Typography>
-                                    Book's rating <span style={{ color: '#EF522B', fontSize: '1.3em', margin: '0 0.2em' }}>{curRate}</span> based on <span style={{ color: '#EF522B', fontSize: '1.3em', margin: '0 0.2em' }}>{rateArray.length}</span> people voted.
+                                    Book's Rating <span style={{ color: '#EF522B', fontSize: '1.3em', margin: '0 0.2em' }}>{curRate}</span> based on <span style={{ color: '#EF522B', fontSize: '1.3em', margin: '0 0.2em' }}>{rateArray.length}</span> people voted.
                                 </Typography>
                             </div>
                             <div className="wrap flex-start" style={{ backgroundColor: rateCheck ? '' : '#ef522a36', transition: 'all 500ms ease-in' }}>
                                 <Typography id="discrete-slider" gutterBottom>
-                                    Your rating
+                                    Your Rating
                                 </Typography>
                                 <Avatar className="rate-style">{rate}</Avatar>
                             </div>
