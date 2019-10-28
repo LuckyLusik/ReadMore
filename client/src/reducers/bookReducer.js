@@ -1,7 +1,8 @@
-import { GET_BOOKS, ADD_BOOK, DELETE_BOOK, UPDATE_BOOK, BOOKS_LOADING } from '../actions/types';
+import { GET_BOOKS, ADD_BOOK, DELETE_BOOK, UPDATE_BOOK, BOOKS_LOADING, SEARCH_BOOK } from '../actions/types';
 
 const initialState = {
     books: [],
+    searchline: '',
     loading: false
 }
 
@@ -36,6 +37,12 @@ export default function(state = initialState, action){
                         return book
                     }
                 })
+            };
+        case SEARCH_BOOK: 
+            return {
+                ...state,
+                searchline: action.payload,
+                loading: false
             };
         case BOOKS_LOADING:
             return {

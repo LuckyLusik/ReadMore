@@ -5,6 +5,7 @@ import Logout from './auth/Logout';
 import Login from './auth/Login';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import SearchBar from './SearchBar';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -53,6 +54,7 @@ function AppNavbar(props) {
                     <Typography variant="h6" className="logo">
                         ReadMore
                     </Typography>
+                    <SearchBar />
                     {isAuthenticated ? authLinks : guestLinks}
                 </Toolbar>
             </AppBar>
