@@ -11,9 +11,11 @@ export const getBooks = searchline => dispatch => {
             if(searchline) {
                 dispatch({
                 type: GET_BOOKS, 
-                payload: res.data.filter((val) => 
+                payload: res.data.filter((onebook) => 
                 {
-                    if(val.author.match(new RegExp(searchline, "i"))) return true;
+                    if(onebook.author[0].match(new RegExp(searchline, "i")) || 
+                        onebook.author[1].match(new RegExp(searchline, "i")) || 
+                        onebook.title.match(new RegExp(searchline, "i"))) return true;
                     else return false;
                 }
                 )
