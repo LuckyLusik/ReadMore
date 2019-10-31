@@ -12,10 +12,13 @@ import RateBook from './RateBook';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Collapse from '@material-ui/core/Collapse';
+import CardContent from '@material-ui/core/CardContent';
 
 function BookList(props) {
-    const { books } = props.book;
+    const { books, searchline } = props.book;
     const { getBooks } = props;
+    const [expanded, setExpanded] = useState(false);
 
     const initFetch = useCallback(() => {
         getBooks();
@@ -24,6 +27,14 @@ function BookList(props) {
       useEffect(() => {
         initFetch();
       }, [initFetch]);
+
+    useEffect(() => {
+        if (searchline) {
+            setExpanded(true);
+        } else {
+        setExpanded(false);
+        }
+    },[searchline]);
 
     const refreshUpdatedBook = () => {
         initFetch();
@@ -50,6 +61,18 @@ function BookList(props) {
 
     return (
         <div className="middle-box">
+            <Collapse in={expanded} timeout="auto" unmountOnExit className='flexx'>
+                {
+                    books.length <= 0 ? 
+                    <CardContent className="info" style={{ fontSize: '1.5em' }}>
+                        Sorry, we have nothing for <span style={{ fontStyle: 'italic', color: '#EF522B', fontWeight: '600' }}>{searchline}</span>...
+                    </CardContent> :
+                    <CardContent className="info" style={{ fontSize: '1.5em' }}>
+                        Search result for <span style={{ fontStyle: 'italic', color: '#EF522B', fontWeight: '600' }}>{searchline}</span>:
+                    </CardContent>
+                }
+            </Collapse>
+            
             <TransitionGroup className="wrap">
                 {
                     books.map( book => (

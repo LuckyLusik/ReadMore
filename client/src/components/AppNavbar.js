@@ -33,6 +33,7 @@ function AppNavbar(props) {
             </Typography>
             <AccountCircleIcon style={{ margin: 0, paddingLeft: '16px', color: '#F79820' }}/>
             <Logout />
+            <SearchBar />
         </Fragment>
       );
 
@@ -55,7 +56,6 @@ function AppNavbar(props) {
                         ReadMore
                     </Typography>
                     {isAuthenticated ? authLinks : guestLinks}
-                    <SearchBar />
                 </Toolbar>
             </AppBar>
         </div>

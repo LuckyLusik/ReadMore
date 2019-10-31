@@ -18,12 +18,14 @@ export const getBooks = searchline => dispatch => {
                         onebook.title.match(new RegExp(searchline, "i"))) return true;
                     else return false;
                 }
-                )
+                ),
+                searchline: searchline
             });
         } else {
                 dispatch({
                     type: GET_BOOKS, 
-                    payload: res.data
+                    payload: res.data,
+                    searchline: ''
                 })
             }
         })

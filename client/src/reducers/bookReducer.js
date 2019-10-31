@@ -13,6 +13,7 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 books: action.payload,
+                searchline: action.searchline,
                 loading: false
             };
         case ADD_BOOK:

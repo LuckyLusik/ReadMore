@@ -1,6 +1,6 @@
 import React, { useReducer, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { addBook } from '../actions/bookActions';
+import { addBook, getBooks } from '../actions/bookActions';
 import PropTypes from 'prop-types';
 import { clearErrors } from '../actions/errorActions';
 
@@ -19,6 +19,7 @@ import Typography from '@material-ui/core/Typography';
 import MoodBadIcon from '@material-ui/icons/MoodBad';
 import MoodIcon from '@material-ui/icons/Mood';
 import Avatar from '@material-ui/core/Avatar';
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 
 const useStyles = makeStyles(theme => ({
     expand: {
@@ -35,13 +36,18 @@ const useStyles = makeStyles(theme => ({
 
 function AddBook(props) {
     const { isAuthenticated, user } = props.auth;
-    const { error, clearErrors, isAdded } = props;
+    const { error, clearErrors, isAdded, getBooks } = props;
+    const { searchline } = props.book;
     const classes = useStyles();
     const [expanded, setExpanded] = useState(false);
     const [expandedErr, setExpandedErr] = useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+
+    const handleAllbooksClick = () => {
+        getBooks();
+    }
 
     const [rate, setRate] = useState(0);
     const handleChangeRate = (event, newValue) => {
@@ -164,8 +170,27 @@ function AddBook(props) {
 
     return (
         <div className="middle-box">
-            <CardActions disableSpacing>
-                { isAuthenticated ? 
+            { isAuthenticated ? 
+                <CardActions disableSpacing>
+                    {
+                        searchline.length <= 0 ? 
+                        <Button 
+                            variant="contained" 
+                            color="secondary" 
+                            className='allbooks-btn'
+                            disabled
+                            style={{ backgroundColor: '#f798203d' }}
+                            onClick={handleAllbooksClick}>
+                            <LibraryBooksIcon />All Books Displayed
+                        </Button> :
+                        <Button 
+                            variant="contained" 
+                            color="secondary" 
+                            className='allbooks-btn'
+                            onClick={handleAllbooksClick}>
+                            <LibraryBooksIcon />Display All Books
+                        </Button>
+                    }
                     <Button 
                         variant="contained" 
                         color="secondary"
@@ -177,9 +202,9 @@ function AddBook(props) {
                         [classes.expandOpen]: expanded,
                     })}/>
                     Add a New Book
-                    </Button> : <Typography className="info">Please, <span style={{ fontStyle: 'italic' }}>log in</span> to manage books.</Typography>
-                }
-            </CardActions>
+                    </Button> 
+                </CardActions> : <Typography className="info" style={{ textAlign: 'center' }}>Please, <span style={{ fontStyle: 'italic' }}>log in</span> to manage books.</Typography>
+            }
             <Collapse in={expanded} timeout="auto" unmountOnExit className="addBook">
                 <CardContent>
                     <FormControl style={{ marginBottom: '0.5em' }}>
@@ -277,7 +302,8 @@ function AddBook(props) {
 AddBook.propTypes = {
     auth: PropTypes.object.isRequired,
     error: PropTypes.object.isRequired,
-    clearErrors: PropTypes.func.isRequired
+    clearErrors: PropTypes.func.isRequired,
+    getBooks: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
@@ -287,4 +313,4 @@ const mapStateToProps = (state) => ({
     error: state.error
 });
 
-export default connect(mapStateToProps, { addBook, clearErrors })(AddBook);
+export default connect(mapStateToProps, { addBook, clearErrors, getBooks })(AddBook);

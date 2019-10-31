@@ -42,6 +42,10 @@ $light-orange: #F79820;
     transition: all 250ms ease-in;
 }
 
+.flexx .MuiCollapse-wrapperInner {
+    display: flex;
+}
+
 body {
     font-family: 'Raleway', "Droid Sans", "Helvetica Neue", sans-serif;
     background-color: $light-yellow;
@@ -65,6 +69,7 @@ body {
 
     .MuiCardActions-root {
         padding: 0;
+        justify-content: space-evenly;
     }
 
     .MuiSvgIcon-root {
@@ -82,9 +87,19 @@ body {
 
     .MuiButton-containedSecondary {
         color: #fff;
-        margin: 0 auto 2em auto;
+        //margin: 0 auto;
         box-shadow: none;
         background-color: #71A9F7;
+    }
+
+    .allbooks-btn.MuiButton-containedSecondary {
+        color: #fff;
+        box-shadow: none;
+        background-color: $light-orange;
+    }
+
+    .allbooks-btn.MuiButton-containedSecondary:hover {
+        background-color: $dark-blue;
     }
 
     .MuiButton-containedSecondary:hover {
@@ -98,6 +113,7 @@ body {
     .addBook .MuiCollapse-wrapper {
         background-color: $almost-white;
         margin-bottom: 2em;
+        margin-top: 2em;
     }
 
     .addBook .MuiFormControl-root {
