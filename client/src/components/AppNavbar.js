@@ -54,8 +54,8 @@ function AppNavbar(props) {
                     <Typography variant="h6" className="logo">
                         ReadMore
                     </Typography>
-                    <SearchBar />
                     {isAuthenticated ? authLinks : guestLinks}
+                    <SearchBar />
                 </Toolbar>
             </AppBar>
         </div>

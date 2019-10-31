@@ -31,6 +31,17 @@ $light-orange: #F79820;
     color: rgba(39, 65, 86, 0.41);
 }
 
+.MuiButton-root.search-btn {
+    background-color: $light-orange;
+    padding: 14px 14px 13px 14px;
+    transition: all 250ms ease-in;
+}
+
+.MuiButton-root.search-btn:hover {
+    background-color: $bright-red;
+    transition: all 250ms ease-in;
+}
+
 body {
     font-family: 'Raleway', "Droid Sans", "Helvetica Neue", sans-serif;
     background-color: $light-yellow;
