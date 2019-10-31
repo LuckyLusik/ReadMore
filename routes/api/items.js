@@ -18,18 +18,29 @@ router.get('/', (req, res) => {
 // @desc    Create an Item
 // @access  Private
 router.post('/', auth, (req, res) => {
-    const newItem = new Item({
-        author: req.body.author,
-        title: req.body.title,
-        userId: req.body.userId,
-        votedIds: req.body.votedIds,
-        imageURL: req.body.imageURL,
-        description: req.body.description,
-        rate: req.body.rate
-    });
-    newItem.save()
-    .then(item => res.json(item));
+    const { title, author } = req.body;
+    Item.find({
+        author: author,
+        title: title
+    }, function (err, results) {
+        if(results.length) {
+            res.status(400).json({ msg: 'This book already exists.' });
+        } else {
+            const newItem = new Item({
+                author: req.body.author,
+                title: req.body.title,
+                userId: req.body.userId,
+                votedIds: req.body.votedIds,
+                imageURL: req.body.imageURL,
+                description: req.body.description,
+                rate: req.body.rate
+            });
+            newItem.save()
+            .then(item => res.json(item));
+        }
+    })
 });
+
 
 // @route   UPDATE api/items/:id
 // @desc    UPDATE an Item

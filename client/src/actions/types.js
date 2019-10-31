@@ -4,6 +4,7 @@ export const DELETE_BOOK = 'DELETE_BOOK';
 export const UPDATE_BOOK = 'UPDATE_BOOK';
 export const BOOKS_LOADING = 'BOOKS_LOADING';
 export const SEARCH_BOOK = 'SEARCH_BOOK';
+export const BOOK_ADDING = 'BOOK_ADDING';
 
 export const USER_LOADING = "USER_LOADING";
 export const USER_LOADED = "USER_LOADED";

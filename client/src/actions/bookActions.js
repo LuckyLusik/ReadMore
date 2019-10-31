@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_BOOKS, ADD_BOOK, DELETE_BOOK, UPDATE_BOOK, BOOKS_LOADING, SEARCH_BOOK } from './types';
+import { GET_BOOKS, ADD_BOOK, DELETE_BOOK, UPDATE_BOOK, BOOKS_LOADING, SEARCH_BOOK, BOOK_ADDING } from './types';
 import { tokenConfig } from './authActions';
 import { returnErrors } from './errorActions';
 
@@ -35,12 +35,12 @@ export const getBooks = searchline => dispatch => {
 export const addBook = book => (dispatch, getState) => {
     axios
         .post('/api/items', book, tokenConfig(getState))
-        .then(res => dispatch({
+        .then(res => { dispatch({
             type: ADD_BOOK, 
             payload: res.data
-        }))
+        }); dispatch(setBookAdding())})
         .catch(err =>
-            dispatch(returnErrors(err.response.data, err.response.status))
+            dispatch(returnErrors(err.response.data, err.response.status, 'ADDING_BOOK_ERROR'))
         );
 };
 
@@ -79,4 +79,10 @@ export const setBooksLoading = () => {
     return {
         type: BOOKS_LOADING
     }
-}
+};
+
+export const setBookAdding = () => {
+    return {
+        type: BOOK_ADDING
+    }
+};

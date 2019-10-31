@@ -1,7 +1,8 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { addBook } from '../actions/bookActions';
 import PropTypes from 'prop-types';
+import { clearErrors } from '../actions/errorActions';
 
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
@@ -34,8 +35,10 @@ const useStyles = makeStyles(theme => ({
 
 function AddBook(props) {
     const { isAuthenticated, user } = props.auth;
+    const { error, clearErrors, isAdded } = props;
     const classes = useStyles();
     const [expanded, setExpanded] = useState(false);
+    const [expandedErr, setExpandedErr] = useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
@@ -45,6 +48,34 @@ function AddBook(props) {
         setRate(newValue);
     };
 
+    useEffect(() => {
+        if (error.id === 'ADDING_BOOK_ERROR') {
+            setUserInput({ msg: error.msg.msg });
+            setExpandedErr(true);
+        } else {
+        setUserInput({ msg: null });
+        setExpandedErr(false);
+        }
+        if (expanded) {
+            if (isAdded === true) {
+                setExpanded(false);
+                setUserInput({
+                    title: '',
+                    authorFirst: '',
+                    authorLast: '',
+                    imageURL: '',
+                    description: '',
+                    msg: null,
+                    titleCheck: true,
+                    authorFirstCheck: true,
+                    authorLastCheck: true,
+                    rateCheck: true,
+                });
+                setRate(0);
+            }
+        }
+    },[error, expanded, isAdded]);
+
     const [userInput, setUserInput] = useReducer(
         (state, newState) => ({...state, ...newState}),
             {
@@ -53,6 +84,7 @@ function AddBook(props) {
                 authorLast: '',
                 imageURL: '',
                 description: '',
+                msg: null,
                 titleCheck: true,
                 authorFirstCheck: true,
                 authorLastCheck: true,
@@ -72,16 +104,19 @@ function AddBook(props) {
             authorLast: '',
             imageURL: '',
             description: '',
+            msg: null,
             titleCheck: true,
             authorFirstCheck: true,
             authorLastCheck: true,
             rateCheck: true,
         });
         setRate(0);
+        clearErrors();
         setExpanded(!expanded);
     };
 
     const addNewBook = () => {
+        clearErrors();
         let descriptionCheck = userInput.description;
         if(descriptionCheck === '') {
             descriptionCheck = 'No description available';
@@ -122,8 +157,8 @@ function AddBook(props) {
                 rate: [rate]
             };
             props.addBook(newBook);
-            resetBook();
-            setExpanded(!expanded);
+            //resetBook();
+            //setExpanded(!expanded);
         }
     };
 
@@ -212,6 +247,11 @@ function AddBook(props) {
                             <MoodIcon style={{ color: '#EF522B', margin: 0}} />
                         </div>
                     </FormControl>
+                    <Collapse in={expandedErr} timeout="auto" unmountOnExit>
+                        <CardContent style={{ backgroundColor: '#ef522a36', color: '#EF522B' }}>
+                            {userInput.msg}
+                        </CardContent>
+                    </Collapse>
                     <Button 
                             variant="contained" 
                             color="secondary"
@@ -235,12 +275,16 @@ function AddBook(props) {
 }
 
 AddBook.propTypes = {
-    auth: PropTypes.object.isRequired
+    auth: PropTypes.object.isRequired,
+    error: PropTypes.object.isRequired,
+    clearErrors: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({
+    isAdded: state.book.isAdded,
     book: state.book,
-    auth: state.auth
+    auth: state.auth,
+    error: state.error
 });
 
-export default connect(mapStateToProps, { addBook })(AddBook);
+export default connect(mapStateToProps, { addBook, clearErrors })(AddBook);
