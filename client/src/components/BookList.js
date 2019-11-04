@@ -19,6 +19,37 @@ function BookList(props) {
     const { books, searchline } = props.book;
     const { getBooks } = props;
     const [expanded, setExpanded] = useState(false);
+    const [listBooks, setListBooks] = useState([]);
+    const [isFetching, setIsFetching] = useState(false);
+    console.log(books);
+    console.log(listBooks);
+    console.log(isFetching);
+    
+
+    useEffect(() => {
+        const initBooks = () => {
+            setListBooks(books.slice(0, 6));
+        };
+        initBooks();
+    }, [books]);
+
+    useEffect(() => {
+        function handleScroll() {
+            if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || isFetching) return;
+            setIsFetching(true);
+          }
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [isFetching]);
+
+    useEffect(() => {
+        function fetchMoreBooks() {
+              setListBooks(prevState => ([...prevState, ...books.slice(prevState.length, prevState.length + 7) ]));
+              setIsFetching(false);
+        }
+        if (!isFetching) return;
+        fetchMoreBooks();
+    }, [isFetching, books]);
 
     const initFetch = useCallback(() => {
         getBooks();
@@ -75,7 +106,7 @@ function BookList(props) {
             
             <TransitionGroup className="wrap">
                 {
-                    books.map( book => (
+                    listBooks.map( book => (
                         <CSSTransition 
                             key={book._id} 
                             timeout={500} 
@@ -109,6 +140,8 @@ function BookList(props) {
                     ))
                 }
             </TransitionGroup>
+            <div>{isFetching && 'Loading more books...'}</div>
+            <div>{books.length === listBooks.length ? 'Yay! You have seen it all' : null}</div>
         </div>
     )
 }
