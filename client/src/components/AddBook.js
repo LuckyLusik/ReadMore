@@ -169,7 +169,7 @@ function AddBook(props) {
     };
 
     return (
-        <div className="middle-box">
+        <div className="middle-box" style={{ paddingTop: '64px' }} id="back-to-top-anchor">
             { isAuthenticated ? 
                 <CardActions disableSpacing>
                     {

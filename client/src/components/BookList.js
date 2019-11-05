@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import { getBooks, updateBook } from '../actions/bookActions';
 import PropTypes from 'prop-types';
 import EditBook from './EditBook';
-import Img from 'react-image';
-import badImage from '../images/noimage.png';
 import DeleteBook from './DeleteBook';
 import RateBook from './RateBook';
+import ImageBook from './ImageBook';
 
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -16,19 +15,15 @@ import Collapse from '@material-ui/core/Collapse';
 import CardContent from '@material-ui/core/CardContent';
 
 function BookList(props) {
-    const { books, searchline } = props.book;
+    const { books, searchline, loading } = props.book;
     const { getBooks } = props;
     const [expanded, setExpanded] = useState(false);
     const [listBooks, setListBooks] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
-    console.log(books);
-    console.log(listBooks);
-    console.log(isFetching);
-    
 
     useEffect(() => {
         const initBooks = () => {
-            setListBooks(books.slice(0, 6));
+            setListBooks(books.slice(0, 12));
         };
         initBooks();
     }, [books]);
@@ -44,7 +39,7 @@ function BookList(props) {
 
     useEffect(() => {
         function fetchMoreBooks() {
-              setListBooks(prevState => ([...prevState, ...books.slice(prevState.length, prevState.length + 7) ]));
+              setListBooks(prevState => ([...prevState, ...books.slice(prevState.length, prevState.length + 12) ]));
               setIsFetching(false);
         }
         if (!isFetching) return;
@@ -114,7 +109,7 @@ function BookList(props) {
                         >
                             <div className="one-book">
                                 <div style={{ width: 190,  height: 280, overflow: "hidden", position: "relative"}}>
-                                    <Img src={[book.imageURL, badImage]} alt="Book Cover" style={{ width: 190, height: "auto"}} />
+                                    <ImageBook bookImage={book.imageURL}></ImageBook>
                                     <RateBook bookToEdit={book} visible={visible} refreshUpdatedBook={refreshUpdatedBook} />
                                     <div className="description" style={{ opacity: visible[book._id] === true ? '1' : '0' }}>
                                         {book.description}
@@ -140,8 +135,12 @@ function BookList(props) {
                     ))
                 }
             </TransitionGroup>
-            <div>{isFetching && 'Loading more books...'}</div>
-            <div>{books.length === listBooks.length ? 'Yay! You have seen it all' : null}</div>
+            <div className='message'>
+                {
+                    (isFetching || loading) ? 'Loading more books...' : 
+                    ( books.length === listBooks.length ? 'Yay! You have seen it all!' : null )
+                }
+            </div>
         </div>
     )
 }

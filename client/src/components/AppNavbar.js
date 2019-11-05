@@ -7,6 +7,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SearchBar from './SearchBar';
 
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import Slide from '@material-ui/core/Slide';
+
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,6 +18,20 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LockIcon from '@material-ui/icons/Lock';
+
+function HideOnScroll(props) {
+    const { children, window } = props;
+    const trigger = useScrollTrigger({ target: window });
+    return (
+      <Slide appear={false} direction="down" in={!trigger}>
+        {children}
+      </Slide>
+    );
+}
+
+HideOnScroll.propTypes = {
+    children: PropTypes.element.isRequired,
+};
 
 const useStyles = makeStyles(theme => ({
     menuButton: {
@@ -47,17 +64,19 @@ function AppNavbar(props) {
 
     return (
         <div className="navbar">
-            <AppBar position="static">
-                <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <img src={logo} alt="Logo ReadMore" style={{ width: '40.3px', height: 'auto'}}/>
-                    </IconButton>
-                    <Typography variant="h6" className="logo">
-                        ReadMore
-                    </Typography>
-                    {isAuthenticated ? authLinks : guestLinks}
-                </Toolbar>
-            </AppBar>
+            <HideOnScroll {...props}>
+                <AppBar>
+                    <Toolbar>
+                        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                            <img src={logo} alt="Logo ReadMore" style={{ width: '40.3px', height: 'auto'}}/>
+                        </IconButton>
+                        <Typography variant="h6" className="logo">
+                            ReadMore
+                        </Typography>
+                        {isAuthenticated ? authLinks : guestLinks}
+                    </Toolbar>
+                </AppBar>
+            </HideOnScroll>
         </div>
     );
 }

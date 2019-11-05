@@ -20,15 +20,25 @@ router.get('/', (req, res) => {
 router.post('/', auth, (req, res) => {
     const { title, author } = req.body;
     Item.find({
-        author: author,
-        title: title
+        author: { $regex: `^${author[0]}$`, $options: 'i' },
+        title: { $regex: `^${title}$`, $options: 'i' }
     }, function (err, results) {
         if(results.length) {
             res.status(400).json({ msg: 'This book already exists.' });
         } else {
+            const upperCaseTitle = (title) =>
+                {
+                    let arrayOfLetters = title.split(' ');
+                    var result = [];
+                    for(let titleOne of arrayOfLetters){
+                        result.push(titleOne.charAt(0).toUpperCase() + titleOne.slice(1).toLowerCase());
+                    }
+                    return result.join(' ');
+                }
+            const authorFull = [upperCaseTitle(author[0]), upperCaseTitle(author[1])];
             const newItem = new Item({
-                author: req.body.author,
-                title: req.body.title,
+                author: authorFull,
+                title: upperCaseTitle(req.body.title),
                 userId: req.body.userId,
                 votedIds: req.body.votedIds,
                 imageURL: req.body.imageURL,
