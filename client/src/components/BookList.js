@@ -13,6 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Collapse from '@material-ui/core/Collapse';
 import CardContent from '@material-ui/core/CardContent';
+import Tooltip from '@material-ui/core/Tooltip';
 
 function BookList(props) {
     const { books, searchline, loading } = props.book;
@@ -30,7 +31,7 @@ function BookList(props) {
 
     useEffect(() => {
         function handleScroll() {
-            if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || isFetching) return;
+            if (window.innerHeight + document.documentElement.scrollTop < document.documentElement.offsetHeight || isFetching) return;
             setIsFetching(true);
           }
         window.addEventListener('scroll', handleScroll);
@@ -116,12 +117,16 @@ function BookList(props) {
                                     </div>
                                     
                                 </div>
-                                <div className="author-style">
-                                    {book.author[0]} {book.author[1]}
-                                </div>
-                                <div className="title-style">
-                                    {book.title}
-                                </div>
+                                <Tooltip title={book.author.join(' ')} placement="top">
+                                    <div className="author-style">
+                                        {book.author[0]} {book.author[1]}
+                                    </div>
+                                </Tooltip>
+                                <Tooltip title={book.title} placement="bottom">
+                                    <div className="title-style">
+                                        {book.title}
+                                    </div>
+                                </Tooltip>
                                 <Grid container justify="space-between" alignItems="center">
                                     <Button style={{ color: visible[book._id] === true ? '#EF522B' : '#274156' }} 
                                         onClick={() => makeVisible(book._id)}>

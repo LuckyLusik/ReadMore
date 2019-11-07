@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Img from 'react-image';
 import badImage from '../images/noimage.png';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default function ImageBook({ bookImage }) {
   const [orientation, setOrientation] = useState('v');
@@ -32,7 +33,7 @@ export default function ImageBook({ bookImage }) {
     <div className='image-style'>
       {
         orientation === 'v' ? 
-        <Img src={[bookImage, badImage]} alt="Book Cover" 
+        <Img src={[bookImage, badImage]} alt="Book Cover" loader={<CircularProgress style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}/>}
           style={{ width: 190, height: "auto"}} /> :
         <Img src={[bookImage, badImage]} alt="Book Cover" style={{ width: "auto", height: 280}} />
       }

@@ -159,8 +159,8 @@ body {
 
     .addBook .MuiCollapse-wrapper {
         background-color: $almost-white;
-        margin-bottom: 2em;
-        margin-top: 2em;
+        width: 70%;
+        margin: 2em auto;
     }
 
     .addBook .MuiFormControl-root {
@@ -223,7 +223,7 @@ body {
 
     .addBook .MuiSlider-root {
         color: $dark-blue;
-        width: 90%;
+        width: 80%;
     }
 
     .addBook {
@@ -501,4 +501,29 @@ body {
         font-family: 'Barriecito', cursive;
         flex-grow: 1;
     }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 601px) and (max-width: 885px) {
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  
+} 
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  
 }

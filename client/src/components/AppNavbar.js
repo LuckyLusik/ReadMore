@@ -4,6 +4,7 @@ import Register from './auth/Register';
 import Logout from './auth/Logout';
 import Login from './auth/Login';
 import { connect } from 'react-redux';
+import { getBooks } from '../actions/bookActions';
 import PropTypes from 'prop-types';
 import SearchBar from './SearchBar';
 
@@ -18,6 +19,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LockIcon from '@material-ui/icons/Lock';
+import Tooltip from '@material-ui/core/Tooltip';
 
 function HideOnScroll(props) {
     const { children, window } = props;
@@ -42,11 +44,16 @@ const useStyles = makeStyles(theme => ({
 function AppNavbar(props) {
     const classes = useStyles();
     const { isAuthenticated, user } = props.auth;
+    const { getBooks } = props;
+
+    const bookAll = () => {
+        getBooks();
+    };
 
     const authLinks = (
         <Fragment>
             <Typography className="user-name">
-              {user ? `Welcome ${user.name}!` : ''}
+              {user ? `Hi ${user.name}!` : ''}
             </Typography>
             <AccountCircleIcon style={{ margin: 0, paddingLeft: '16px', color: '#F79820' }}/>
             <Logout />
@@ -67,9 +74,11 @@ function AppNavbar(props) {
             <HideOnScroll {...props}>
                 <AppBar>
                     <Toolbar>
-                        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                            <img src={logo} alt="Logo ReadMore" style={{ width: '40.3px', height: 'auto'}}/>
-                        </IconButton>
+                        <Tooltip title='Display All Books' placement="bottom">
+                            <IconButton edge="start" onClick={bookAll} className={classes.menuButton} color="inherit" aria-label="menu">
+                                <img src={logo} alt="Logo ReadMore" style={{ width: '40.3px', height: 'auto'}}/>
+                            </IconButton>
+                        </Tooltip>
                         <Typography variant="h6" className="logo">
                             ReadMore
                         </Typography>
@@ -86,7 +95,8 @@ AppNavbar.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-    auth: state.auth
+    auth: state.auth,
+    book: state.book
 });
 
-export default connect(mapStateToProps, null)(AppNavbar);
+export default connect(mapStateToProps, { getBooks })(AppNavbar);
