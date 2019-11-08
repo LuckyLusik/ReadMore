@@ -98,8 +98,8 @@ function Login(props) {
     return (
         <div>
             <Button color="inherit" onClick={handleClickOpen}>Login</Button>
-            <Dialog style={{ zIndex: '45000' }} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="editBookWindow">
-                <DialogTitle id="form-dialog-register" className="editBookWindow">
+            <Dialog style={{ zIndex: '60000' }} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="editBookWindow">
+                <DialogTitle id="form-dialog-register" className="editBookWindow window-title">
                     <AccountCircleIcon style={{ width: '2em', height: '2em' }}/>
                     Login
                 </DialogTitle>
