@@ -41,7 +41,7 @@ function SearchBar(props) {
     };
 
     return (
-        <div style={{ marginLeft: '1.5em', display: 'flex', alignItems: 'center' }}>
+        <div className='search-bar'>
             <InputBase
                 value={searchLine} 
                 onChange={handleChange}

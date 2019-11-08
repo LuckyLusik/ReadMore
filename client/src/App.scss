@@ -80,8 +80,12 @@ $light-orange: #F79820;
 
 .MuiButton-root.search-btn {
     background-color: $light-orange;
-    padding: 14px 14px 13px 14px;
+    padding: 9.93px 10px 9.9px 10px;
     transition: all 250ms ease-in;
+}
+
+.PrivateValueLabel-offset-365 {
+    left: calc(-50% + 8px);
 }
 
 .MuiButton-root.search-btn:hover {
@@ -93,14 +97,30 @@ $light-orange: #F79820;
     display: flex;
 }
 
+span[class^="PrivateValueLabel-offset-"] {
+    left: calc(-50% + 8px);
+}
+
 body {
     font-family: 'Raleway', "Droid Sans", "Helvetica Neue", sans-serif;
     background-color: $light-yellow;
+
+    .MuiSlider-thumb {
+        width: 24px;
+        height: 24px;
+        margin-top: -12px;
+    }
+    
+    .MuiSvgIcon-root {
+        width: 1.3em;
+        height: 1.3em;
+    }
 
     .user-name {
         font-family: 'Raleway', "Droid Sans", "Helvetica Neue", sans-serif;
         color: $light-orange;
         font-style: italic;
+        padding-left: 16px;
     }
 
     .info {
@@ -109,9 +129,21 @@ body {
         margin: 0px auto;
     }
 
+    .info.add-log {
+        padding-top: 64px;
+    }
+
+    .info.explain {
+        width: 70%; 
+        margin-bottom: 2em;
+    }
+
     .middle-box {
         width: 80%;
         margin: 2em auto;
+        .add-box {
+            padding-top: 64px;
+        }
     }
 
     .MuiCardActions-root {
@@ -308,6 +340,7 @@ body {
 
     .wrap.justify {
         justify-content: space-between;
+        align-items: center;
     }
 
     .editBook {
@@ -503,14 +536,128 @@ body {
     }
 }
 
+.nav-logo {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.nav-name {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar {
+    margin-left: 1.5em;
+    display: flex;
+    align-items: center;
+}
+
+
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+    .message {
+        width: 88%;
+    }
+
+    body .addBook .MuiCollapse-wrapper {
+        width: 100%;
+    }
+
+    body .addBook .MuiSlider-root {
+        width: 70%;
+    }
+
+    body .addBook .MuiButton-containedSecondary {
+        margin: 2em 0em 0 0;
+        width: 100%;
+    }
+
+    body .allbooks-btn.MuiButton-containedSecondary {
+        margin-bottom: 16px;
+        width: 88%;
+    }
+
+    body .addbook-btn.MuiButton-containedSecondary {
+        width: 88%;
+        .makeStyles-expand-133 {
+            margin-left: 0;
+        }
+    }
+
+    body .MuiCardActions-root {
+        flex-direction: column;
+    }
+
+    .MuiToolbar-root {
+        flex-direction: column;
+    }
+
+    .search-bar {
+        margin-left: 0;
+        margin-bottom: 16px;
+        margin-top: 16px;
+    }
+
+    body .middle-box .add-box {
+        padding-top: 195px;
+    }
+
+    body .info.add-log {
+        padding-top: 115px;
+    }
+
+    body .window-title .MuiTypography-h6 {
+        font-size: 1.35rem;
+    }
+
+    body .info.explain {
+        width: 88%;
+    }
+
+    body .editBookWindow {
+        .MuiTypography-body1.rate-h {
+            line-height: 1.2;
+        }
+
+        .MuiDialogActions-root.edit-save-m {
+            padding-top: 0;
+        }
+
+        .MuiDialog-paperWidthSm {
+            max-width: 700px;
+        }
+    
+        .MuiDialog-paperScrollPaper {
+            max-height: calc(100% - 56px);
+        }
+    }
 
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 601px) and (max-width: 885px) {
+    .MuiToolbar-root {
+        flex-direction: column;
+    }
 
+    .search-bar {
+        margin-left: 0;
+        margin-bottom: 16px;
+        margin-top: 16px;
+    }
+
+    body .middle-box .add-box {
+        padding-top: 195px;
+    }
+
+    body .info.add-log {
+        padding-top: 115px;
+    }
+
+    body .info.explain {
+        width: 85%;
+    }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */

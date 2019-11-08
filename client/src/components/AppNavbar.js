@@ -52,21 +52,23 @@ function AppNavbar(props) {
 
     const authLinks = (
         <Fragment>
-            <Typography className="user-name">
-              {user ? `Hi ${user.name}!` : ''}
-            </Typography>
-            <AccountCircleIcon style={{ margin: 0, paddingLeft: '16px', color: '#F79820' }}/>
-            <Logout />
-            <SearchBar />
+            <div className='nav-name'>
+                <Typography className="user-name">
+                    {user ? `Hi ${user.name}!` : ''}
+                </Typography>
+                <AccountCircleIcon style={{ margin: 0, paddingLeft: '16px', color: '#F79820' }}/>
+                <Logout />
+            </div>
+                <SearchBar />
         </Fragment>
       );
 
       const guestLinks = (
-        <Fragment>
+        <div className='nav-name'>
             <Register />
             <LockIcon style={{ color: '#EF522B', marginRight: '0px' }}/>
             <Login />
-        </Fragment>
+        </div>
       );
 
     return (
@@ -74,14 +76,16 @@ function AppNavbar(props) {
             <HideOnScroll {...props}>
                 <AppBar>
                     <Toolbar>
-                        <Tooltip title='Display All Books' placement="bottom">
-                            <IconButton edge="start" onClick={bookAll} className={classes.menuButton} color="inherit" aria-label="menu">
-                                <img src={logo} alt="Logo ReadMore" style={{ width: '40.3px', height: 'auto'}}/>
-                            </IconButton>
-                        </Tooltip>
-                        <Typography variant="h6" className="logo">
-                            ReadMore
-                        </Typography>
+                        <div className='nav-logo'>
+                            <Tooltip title='Display All Books' placement="bottom">
+                                <IconButton edge="start" onClick={bookAll} className={classes.menuButton} color="inherit" aria-label="menu">
+                                    <img src={logo} alt="Logo ReadMore" style={{ width: '40.3px', height: 'auto'}}/>
+                                </IconButton>
+                            </Tooltip>
+                            <Typography variant="h6" className="logo">
+                                ReadMore
+                            </Typography>
+                        </div>
                         {isAuthenticated ? authLinks : guestLinks}
                     </Toolbar>
                 </AppBar>

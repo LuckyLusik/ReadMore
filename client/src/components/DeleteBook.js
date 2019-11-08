@@ -39,8 +39,8 @@ function DeleteBook(props) {
                     <DeleteForeverIcon />
                 </Button>
             }
-            <Dialog style={{ zIndex: '45000' }} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="editBookWindow">
-                <DialogTitle id="form-dialog-delete" className="deleteBtn">
+            <Dialog style={{ zIndex: '60000' }} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="editBookWindow">
+                <DialogTitle id="form-dialog-delete" className="deleteBtn window-title">
                     <DeleteForeverIcon style={{ width: '2em', height: '2em' }}/>
                     Are you sure?
                 </DialogTitle>

@@ -51,6 +51,7 @@ function App(props) {
   return (
     <Provider store={store}>
       <div className="App">
+        <div  id="back-to-top-anchor"/>
         <AppNavbar />
         <AddBook />
         <BookList />

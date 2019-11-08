@@ -99,8 +99,8 @@ function RateBook(props) {
                 </Button>
             }
             
-            <Dialog style={{ zIndex: '40000' }} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="editBookWindow">
-                <DialogTitle id="form-dialog-rate">
+            <Dialog style={{ zIndex: '60000' }} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="editBookWindow">
+                <DialogTitle className='window-title' id="form-dialog-rate">
                     <StarsIcon style={{ width: '2em', height: '2em' }}/>
                     Rate This Book
                 </DialogTitle>
@@ -109,7 +109,7 @@ function RateBook(props) {
                             <div style={{ color: '#274156', padding: '10px 10px 10px 0', fontSize: '1.5em' }}>{bookToEdit.author[0]} {bookToEdit.author[1]}</div>
                             <div style={{ color: '#274156', fontWeight: '700', padding: '10px 10px 10px 0', fontSize: '1.5em' }}>{bookToEdit.title}</div>
                             <div>
-                                <Typography>
+                                <Typography className='rate-h'>
                                     Book's Rating <span style={{ color: '#EF522B', fontSize: '1.3em', margin: '0 0.2em' }}>{curRate}</span> based on <span style={{ color: '#EF522B', fontSize: '1.3em', margin: '0 0.2em' }}>{rateArray.length}</span> people voted.
                                 </Typography>
                             </div>

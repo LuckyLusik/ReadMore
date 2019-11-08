@@ -169,10 +169,10 @@ function AddBook(props) {
     };
 
     return (
-        <div className="middle-box" style={{ paddingTop: '64px' }} id="back-to-top-anchor">
+        <div className="middle-box">
             { isAuthenticated ? 
-            <div>
-                <Typography className="info" style={{ width: '70%', marginBottom: '2em' }}>
+            <div className='add-box'>
+                <Typography className="info explain">
                     Welcome to <span style={{ fontFamily: 'Barriecito, cursive', fontSize: '1.2em', color: '#EF522B' }}>ReadMore</span>! Here you can rate books 
                     you have read or add a new one if you cannot 
                     find it in our library. You can edit or delete 
@@ -202,6 +202,7 @@ function AddBook(props) {
                     <Button 
                         variant="contained" 
                         color="secondary"
+                        className='addbook-btn'
                         onClick={handleExpandClick}
                         aria-expanded={expanded}
                         aria-label="show more"
@@ -212,7 +213,7 @@ function AddBook(props) {
                     Add a New Book
                     </Button> 
                 </CardActions>
-                </div> : <Typography className="info" style={{ textAlign: 'center' }}>Please, <span style={{ fontStyle: 'italic' }}>log in</span> to manage books.</Typography>
+                </div> : <Typography className="info add-log" style={{ textAlign: 'center' }}>Please, <span style={{ fontStyle: 'italic' }}>log in</span> to manage books.</Typography>
             }
             <Collapse in={expanded} timeout="auto" unmountOnExit className="addBook">
                 <CardContent>

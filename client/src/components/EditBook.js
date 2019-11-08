@@ -103,8 +103,8 @@ function EditBook(props) {
                     <EditIcon />
                 </Button>
             }
-            <Dialog style={{ zIndex: '40000' }} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="editBookWindow">
-                <DialogTitle id="form-dialog-title">
+            <Dialog style={{ zIndex: '60000' }} open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="editBookWindow">
+                <DialogTitle className='window-title' id="form-dialog-title">
                     <EditIcon style={{ width: '2em', height: '2em' }}/>
                     Edit Book's Info
                 </DialogTitle>
@@ -151,12 +151,12 @@ function EditBook(props) {
                             <Input name="description" type="text" id="component-edit-description" value={userInput.description} onChange={handleChange} />
                         </FormControl>
                     </CardContent>
-                <DialogActions>
+                <DialogActions className='edit-save-m'>
                     <Button onClick={handleClose} color="secondary" variant="contained" className="cancelButton">
                         Cancel
                     </Button>
                     <Button onClick={handleEditBook} color="secondary" variant="contained">
-                        Save Changes
+                        Save it
                     </Button>
                 </DialogActions>
             </Dialog>
