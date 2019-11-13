@@ -226,7 +226,7 @@ function AddBook(props) {
                     >
                     <AddIcon className={clsx(classes.expand, {
                         [classes.expandOpen]: expanded,
-                    })}/>
+                    })} style={{ marginLeft: 0 }}/>
                     Add a New Book
                     </Button> 
                 </CardActions>

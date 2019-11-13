@@ -560,6 +560,10 @@ body {
         width: 88%;
     }
 
+    body .middle-box {
+        width: 100%;
+    }
+
     body .addBook .MuiCollapse-wrapper {
         width: 100%;
     }
@@ -630,6 +634,10 @@ body {
     
         .MuiDialog-paperScrollPaper {
             max-height: calc(100% - 56px);
+        }
+
+        .MuiDialog-paper {
+            margin: 10px;
         }
     }
 
