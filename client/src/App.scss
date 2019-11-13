@@ -565,7 +565,7 @@ body {
     }
 
     body .addBook .MuiCollapse-wrapper {
-        width: 100%;
+        width: 95%;
     }
 
     body .addBook .MuiSlider-root {
@@ -638,6 +638,14 @@ body {
 
         .MuiDialog-paper {
             margin: 10px;
+        }
+
+        .MuiDialogTitle-root {
+            padding: 8px 24px;
+        }
+
+        .MuiCardContent-root {
+            padding: 18px 24px 0 24px;
         }
     }
 
