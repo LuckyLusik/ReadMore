@@ -54,6 +54,24 @@ function AddBook(props) {
         setRate(newValue);
     };
 
+    const [hideScroll, setHideScroll] = useState(true);
+
+    useEffect(() => {
+        function findWidth() {
+            if (window.innerWidth > 700) {
+                setHideScroll(true);
+            } else {
+                setHideScroll(false);
+            }
+        }
+        window.addEventListener('resize', findWidth);
+        window.addEventListener('scroll', findWidth);
+        return () => {
+            window.removeEventListener('resize', findWidth);
+            window.removeEventListener('scroll', findWidth);
+        }
+    },[]);
+
     useEffect(() => {
         if (error.id === 'ADDING_BOOK_ERROR') {
             setUserInput({ msg: error.msg.msg });
@@ -171,13 +189,12 @@ function AddBook(props) {
     return (
         <div className="middle-box">
             { isAuthenticated ? 
-            <div className='add-box'>
+            <div className='add-box' style={ hideScroll ? ({}) : ({ paddingTop: 0 }) }>
                 <Typography className="info explain">
-                    Welcome to <span style={{ fontFamily: 'Barriecito, cursive', fontSize: '1.2em', color: '#EF522B' }}>ReadMore</span>! Here you can rate books 
-                    you have read or add a new one if you cannot 
-                    find it in our library. You can edit or delete 
-                    only books which were added by you. Book’s 
-                    rating cannot be changed: once you voted &mdash; this option will be disabled. 
+                    Welcome to <span style={{ fontFamily: 'Barriecito, cursive', fontSize: '1.2em', color: '#EF522B' }}>ReadMore</span>! 
+                    Here you’re able to rate books you’ve read. 
+                    Books you have added to your library can be edited or deleted. 
+                    A book rating can’t be changed once you’ve voted (this option will be disabled).
                 </Typography>
                 <CardActions disableSpacing>
                     {
@@ -213,7 +230,7 @@ function AddBook(props) {
                     Add a New Book
                     </Button> 
                 </CardActions>
-                </div> : <Typography className="info add-log" style={{ textAlign: 'center' }}>Please, <span style={{ fontStyle: 'italic' }}>log in</span> to manage books.</Typography>
+                </div> : <Typography className="info add-log" style={ hideScroll ? ({ textAlign: 'center' }) : ({ paddingTop: 0, textAlign: 'center' }) }>Please, <span style={{ fontStyle: 'italic' }}>log in</span> to manage books.</Typography>
             }
             <Collapse in={expanded} timeout="auto" unmountOnExit className="addBook">
                 <CardContent>

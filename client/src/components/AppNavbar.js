@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import logo from '../images/logo_red_03.png';
 import Register from './auth/Register';
 import Logout from './auth/Logout';
@@ -45,6 +45,23 @@ function AppNavbar(props) {
     const classes = useStyles();
     const { isAuthenticated, user } = props.auth;
     const { getBooks } = props;
+    const [hideScroll, setHideScroll] = useState(true);
+
+    useEffect(() => {
+        function findWidth() {
+            if (window.innerWidth > 700) {
+                setHideScroll(true);
+            } else {
+                setHideScroll(false);
+            }
+        }
+        window.addEventListener('resize', findWidth);
+        window.addEventListener('scroll', findWidth);
+        return () => {
+            window.removeEventListener('resize', findWidth);
+            window.removeEventListener('scroll', findWidth);
+        }
+    },[]);
 
     const bookAll = () => {
         getBooks();
@@ -73,7 +90,9 @@ function AppNavbar(props) {
 
     return (
         <div className="navbar">
-            <HideOnScroll {...props}>
+            {
+                hideScroll ? 
+                <HideOnScroll {...props}>
                 <AppBar>
                     <Toolbar>
                         <div className='nav-logo'>
@@ -89,7 +108,24 @@ function AppNavbar(props) {
                         {isAuthenticated ? authLinks : guestLinks}
                     </Toolbar>
                 </AppBar>
-            </HideOnScroll>
+            </HideOnScroll> :
+            <AppBar position="static">
+                <Toolbar>
+                    <div className='nav-logo'>
+                        <Tooltip title='Display All Books' placement="bottom">
+                            <IconButton edge="start" onClick={bookAll} className={classes.menuButton} color="inherit" aria-label="menu">
+                                <img src={logo} alt="Logo ReadMore" style={{ width: '40.3px', height: 'auto'}}/>
+                            </IconButton>
+                        </Tooltip>
+                        <Typography variant="h6" className="logo">
+                            ReadMore
+                        </Typography>
+                    </div>
+                    {isAuthenticated ? authLinks : guestLinks}
+                </Toolbar>
+            </AppBar>
+            }
+            
         </div>
     );
 }
