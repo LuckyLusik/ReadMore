@@ -48,8 +48,8 @@ function BookList(props) {
     }, [isFetching, books]);
 
     const initFetch = useCallback(() => {
-        getBooks();
-      }, [getBooks]);
+        getBooks(searchline);
+      }, [getBooks, searchline]);
     
       useEffect(() => {
         initFetch();
@@ -64,7 +64,7 @@ function BookList(props) {
     },[searchline]);
 
     const refreshUpdatedBook = () => {
-        initFetch();
+        initFetch(searchline);
     }
 
     const [visible, setVisible] = useState({});
