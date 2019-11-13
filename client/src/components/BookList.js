@@ -88,6 +88,7 @@ function BookList(props) {
 
     return (
         <div className="middle-box">
+            <div id='search-line'/>
             <Collapse in={expanded} timeout="auto" unmountOnExit className='flexx'>
                 {
                     books.length <= 0 ? 

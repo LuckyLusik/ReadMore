@@ -27,10 +27,12 @@ function SearchBar(props) {
     const classes = useStyles();
     const { getBooks } = props;
     const [searchLine, setSearchLine] = useState('');
+    const searchElement = document.getElementById("search-line");
     const handleChange = (e) => {
         setSearchLine(e.target.value);
     };
     const bookSearch = () => {
+        searchElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
         getBooks(searchLine);
         setSearchLine('');
     };
