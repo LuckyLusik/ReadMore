@@ -230,7 +230,9 @@ function AddBook(props) {
                     Add a New Book
                     </Button> 
                 </CardActions>
-                </div> : <Typography className="info add-log" style={ hideScroll ? ({ textAlign: 'center' }) : ({ paddingTop: 0, textAlign: 'center' }) }>Please, <span style={{ fontStyle: 'italic' }}>log in</span> to manage books.</Typography>
+                </div> : <Typography className="info add-log pls-mob" style={ hideScroll ? ({ textAlign: 'center' }) : ({ paddingTop: 0, textAlign: 'center' }) }>
+                            Please, <span style={{ fontStyle: 'italic' }}>register</span>/<span style={{ fontStyle: 'italic' }}>log in</span> to be able to manage books.
+                        </Typography>
             }
             <Collapse in={expanded} timeout="auto" unmountOnExit className="addBook">
                 <CardContent>
@@ -300,7 +302,7 @@ function AddBook(props) {
                         </div>
                     </FormControl>
                     <Collapse in={expandedErr} timeout="auto" unmountOnExit>
-                        <CardContent style={{ backgroundColor: '#ef522a36', color: '#EF522B' }}>
+                        <CardContent style={{ backgroundColor: '#ef522a36', color: '#EF522B' }} className='mes'>
                             {userInput.msg}
                         </CardContent>
                     </Collapse>

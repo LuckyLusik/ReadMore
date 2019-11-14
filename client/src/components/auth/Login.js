@@ -127,7 +127,7 @@ function Login(props) {
                         <FormHelperText id="my-helper-password" style={{ opacity: userInput.passwordCheck ? '0' : '1', color: '#EF522B', transition: 'all 500ms ease-in', fontFamily: 'Raleway' }} >Please, enter your password.</FormHelperText>
                     </FormControl>
                     <Collapse in={expanded} timeout="auto" unmountOnExit>
-                        <CardContent style={{ backgroundColor: '#ef522a36', color: '#EF522B' }}>
+                        <CardContent style={{ backgroundColor: '#ef522a36', color: '#EF522B' }} className='mes'>
                             {userInput.msg}
                         </CardContent>
                     </Collapse>

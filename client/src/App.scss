@@ -611,6 +611,10 @@ body {
         padding-top: 115px;
     }
 
+    body .info.add-log.pls-mob {
+        width: 65%;
+    }
+
     body .window-title .MuiTypography-h6 {
         font-size: 1.35rem;
     }
@@ -646,6 +650,10 @@ body {
 
         .MuiCardContent-root {
             padding: 18px 24px 0 24px;
+        }
+
+        .MuiCardContent-root.mes {
+            padding: 18px 24px;
         }
     }
 
