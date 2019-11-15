@@ -36,7 +36,6 @@ const useStyles = makeStyles(theme => ({
 
 function AddBook(props) {
     const { isAuthenticated, user } = props.auth;
-    console.log(user);
     const { error, clearErrors, isAdded, getBooks } = props;
     const { searchline } = props.book;
     const classes = useStyles();
