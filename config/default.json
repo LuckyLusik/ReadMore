@@ -1,4 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://foreach:iJOggDGrIzTUYTLI@mern-shopping-list-rpjfn.mongodb.net/test?retryWrites=true&w=majority",
-    "jwtSecret": "rm_MyJWTSecret"
+    "mongoURI": "mongodb+srv://NAME:PASSWORD@mern-shopping-list-rpjfn.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "YOURWORD"
 }
